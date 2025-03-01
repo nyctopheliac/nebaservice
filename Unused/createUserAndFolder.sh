@@ -16,7 +16,7 @@ sudo smbpasswd -a "$USERNAME"
 # create/pasta partilhada
 sudo mkdir -p "$SHARED_FOLDER_PATH"
 sudo chown -R "$USERNAME":"$USERNAME" "$SHARED_FOLDER_PATH"
-sudo chmod -R 775 "$SHARED_FOLDER_PATH"
+sudo chmod -R 700 "$SHARED_FOLDER_PATH"
 
 # adicionar pasta ao smb shares
 SHARED_FOLDER_CONFIG="/etc/samba/smb.conf"
