@@ -19,6 +19,7 @@ if (isset($_POST['register'])) {
         if(mysqli_query($conn, $sql)==true){
             echo "<script>alert('Registration successful!')</script>";
             echo "<script>window.location.href='index.php';</script>";
+            exec('sudo Unused\createUserAndFolder.sh');
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -43,4 +44,6 @@ if(isset($_POST['login'])){
         echo "<Script>alert('Login failed!')</Script>";
     }
 }
+
+
 ?>
