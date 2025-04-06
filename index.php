@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <title>NebaService</title>
 </head>
+<button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+</button>
 <body>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
@@ -113,39 +115,39 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script>
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // Verifica a preferência do cliente ou usa a preferência do sistema
-    const currentTheme = localStorage.getItem('theme') || 
-                         (prefersDarkScheme.matches ? 'dark' : 'light');
-    document.body.classList.toggle('dark', currentTheme === 'dark');
-    
-    // Troca entre light mode e dark mode
-    darkModeToggle.addEventListener('click', () => {
-      const isDark = document.body.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      
-      // Update do icone
-      const icon = darkModeToggle.querySelector('svg');
-      if (isDark) {
-        icon.innerHTML = `
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        `;
-      } else {
-        icon.innerHTML = `
-          <circle cx="12" cy="12" r="5"></circle>
-          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
-        `;
-      }
-    });
-    
-    // Mudança do icone de acordo com o tema
-    if (currentTheme === 'dark') {
-      darkModeToggle.querySelector('svg').innerHTML = `
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-      `;
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const sunIcon = `
+    <svg viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5" />
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+    </svg>
+  `;
+  const moonIcon = `
+    <svg viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+  `;
+
+  // Check for saved preference or use system preference
+  const currentTheme = localStorage.getItem('theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  
+  // Apply the initial theme
+  if (currentTheme === 'dark') {
+    document.body.classList.add('dark');
+    darkModeToggle.innerHTML = moonIcon;
+  } else {
+    darkModeToggle.innerHTML = sunIcon;
+  }
+
+  // Toggle between themes
+  darkModeToggle.addEventListener('click', () => {
+    const isDark = document.body.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    darkModeToggle.innerHTML = isDark ? moonIcon : sunIcon;
+  });
+});
   </script>
 </body>
 </html>
