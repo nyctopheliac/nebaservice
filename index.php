@@ -99,7 +99,7 @@
           <h5>Contact</h5>
           <ul class="list-unstyled">
             <li>info@nebaservice.com</li>
-            <li>+1 (555) 123-4567</li>
+            <li>+351 xxx-xxx-xxx</li>
           </ul>
         </div>
       </div>
@@ -129,11 +129,10 @@
     </svg>
   `;
 
-  // Check for saved preference or use system preference
-  const currentTheme = localStorage.getItem('theme') || 
-                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  // verificar preferências do usuário
+  const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   
-  // Apply the initial theme
+  // aplicar tema inicial
   if (currentTheme === 'dark') {
     document.body.classList.add('dark');
     darkModeToggle.innerHTML = moonIcon;
@@ -141,7 +140,7 @@
     darkModeToggle.innerHTML = sunIcon;
   }
 
-  // Toggle between themes
+  // mudança de temas
   darkModeToggle.addEventListener('click', () => {
     const isDark = document.body.classList.toggle('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
