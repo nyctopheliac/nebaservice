@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Us</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>About Us</h1>
+    </header>
+    <main>
+        <img src="logo.png" alt="Company Logo">
+        <p>Welcome to <span id="company-name"></span>. We are a team of <span id="number-of-employees"></span> employees, and we have been in business since <span id="year-established"></span>.</p>
+        <p>We are located at <span id="address"></span>, and our phone number is <span id="phone"></span>.</p>
+        <p>We are a <span id="type-of-business"></span> company, and we specialize in <span id="products-and-services"></span>.</p>
+        <p>Our mission statement is: <span id="mission-statement"></span>.</p>
+    </main>
+    <script>
+        const companyInfo = {
+            companyName: 'NebaService',
+            numberOfEmployees: 3,
+            yearEstablished: 2025,
+            address: 'placeholder address',
+            phone: 'placeholder phone',
+            typeOfBusiness: 'technology',
+            productsAndServices: 'computer hardware and software',
+            missionStatement: 'Our mission is to provide the best technology products and services to our customers.'
+        };
+        document.querySelector('#company-name').innerHTML = companyInfo.companyName;
+        document.querySelector('#number-of-employees').innerHTML = companyInfo.numberOfEmployees;
+        document.querySelector('#year-established').innerHTML = companyInfo.yearEstablished;
+        document.querySelector('#address').innerHTML = companyInfo.address;
+        document.querySelector('#phone').innerHTML = companyInfo.phone;
+        document.querySelector('#type-of-business').innerHTML = companyInfo.typeOfBusiness;
+        document.querySelector('#products-and-services').innerHTML = companyInfo.productsAndServices;
+        document.querySelector('#mission-statement').innerHTML = companyInfo.missionStatement;
+    </script>
+</body>
+</html>
