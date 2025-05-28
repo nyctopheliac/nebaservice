@@ -30,7 +30,7 @@
             <a class="nav-link" href="#">Features</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pricing.php">Pricing</a>
+            <a class="nav-link" href="catalogo.php">Catalogo</a>
           </li>
           <li class="nav-item ms-lg-3">
             <a href="login.php" class="btn btn-outline">Login</a>
@@ -97,7 +97,7 @@
           <ul class="list-unstyled">
             <li><a href="#">Home</a></li>
             <li><a href="#">Features</a></li>
-            <li><a href="#">Pricing</a></li>
+            <li><a href="catalogo.php">Catalogo</a></li>
           </ul>
         </div>
         <div class="col-md-3">
