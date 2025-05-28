@@ -1,13 +1,11 @@
 <?php
-$host="localhost";
-$user="root";
-$password="";
-$database="nebaservice";
-$conn=mysqli_connect($host,$user,$password,$database);
-if($conn->connect_error){
-    echo "Failed to connect to MySQL: " . $conn->connect_error;
-}
-else{
-    echo "Connected.";
+$host = "localhost";
+$user = "root";
+$password = "";
+$database = "nebaservice";
+
+$conn = mysqli_connect($host, $user, $password, $database);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 ?>

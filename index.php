@@ -24,13 +24,15 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Features</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="catalogo.php">Catalogo</a>
+            <a class="nav-link" href="catalogo.php">Catálogo</a>
+          <li class="nav-item">
+            <a class="nav-link" href="servicos.php">Serviços</a>
           </li>
           <li class="nav-item ms-lg-3">
             <a href="login.php" class="btn btn-outline">Login</a>

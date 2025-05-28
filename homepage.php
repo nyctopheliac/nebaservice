@@ -1,6 +1,36 @@
 <?php
 session_start();
 include('connect.php');
+
+if (!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$email = $_SESSION['email'];
+
+// Fetch user details
+$query = mysqli_query($conn, "SELECT * FROM utilizadores WHERE email='$email'");
+$user = mysqli_fetch_assoc($query);
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Handle profile updates
+    if (isset($_POST['update'])) {
+        $newEmail = $_POST['email'];
+        $newAddress = $_POST['address'];
+        $newPassword = $_POST['password'];
+
+        // Update email and address
+        $updateQuery = "UPDATE utilizadores SET email='$newEmail', morada='$newAddress' WHERE email='$email'";
+        if (!empty($newPassword)) {
+            $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+            $updateQuery = "UPDATE utilizadores SET email='$newEmail', morada='$newAddress', passwordHash='$hashedPassword' WHERE email='$email'";
+        }
+        mysqli_query($conn, $updateQuery);
+        $_SESSION['email'] = $newEmail; // Update session email
+        echo "<script>alert('Profile updated successfully!');</script>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,22 +39,33 @@ include('connect.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Homepage</title>
+    <title>Manage Profile</title>
 </head>
 <body>
-    <div style="text-align: center; padding:15%;">
-        <p style="font-size:50px; font-weight:bold;"> 
-            Welcome, <?php 
-            if(isset($_SESSION['email'])){
-                $email=$_SESSION['email'];
-                $query=mysqli_query($conn,"SELECT users.* FROM users WHERE users.email='$email'");
-                while($row=mysqli_fetch_array($query)){
-                    echo $row['firstName'].''.$row['lastName'];
-                    }
-                }
-                ?>
-        </p>
-        <a href="logout.php" class="btn">Logout</a>
+    <nav>
+        <ul>
+            <li><a href="index.php">NebaService</a></li>
+            <li><a href="catalogo.php">Catálogo</a>
+        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="servicos.php">Serviços</a>
+            </li>
+            <li><a href="login.php">Login</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div>
+        <h1>Manage Your Profile</h1>
+        <form method="post">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" value="<?php echo $user['email']; ?>" required>
+            <label for="address">Delivery Address:</label>
+            <input type="text" name="address" id="address" value="<?php echo $user['morada']; ?>" required>
+            <label for="password">New Password:</label>
+            <input type="password" name="password" id="password">
+            <input type="submit" name="update" value="Update Profile">
+        </form>
     </div>
 </body>
 </html>
