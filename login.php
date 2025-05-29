@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand nav-logo" href="index.php">Neba<span>Service</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
     <div class="container" id="register" style="display:none">
         <h1 class="form-title">Register</h1>
         <form method="post" action="register.php">
@@ -76,6 +85,33 @@
             <button id="registerButton">Register</button>
         </div>
     </div>
+
+    <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h4>NebaService</h4>
+          <p>Providing professional services since 2025.</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="servicos.php">Serviços</a></li>
+            <li><a href="catalogo.php">Catalogo</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li>info@nebaservice.com</li>
+            <li>+351 xxx-xxx-xxx</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
     <script src="script.js"></script>
 </body>
 </html>

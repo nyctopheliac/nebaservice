@@ -97,8 +97,8 @@
         <div class="col-md-3">
           <h5>Links</h5>
           <ul class="list-unstyled">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Features</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="servicos.php">Serviços</a></li>
             <li><a href="catalogo.php">Catalogo</a></li>
           </ul>
         </div>

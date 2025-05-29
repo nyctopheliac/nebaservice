@@ -40,6 +40,33 @@
         <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Header</h1>    
     </div>
   </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h4>NebaService</h4>
+          <p>Providing professional services since 2025.</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="servicos.php">Serviços</a></li>
+            <li><a href="catalogo.php">Catalogo</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li>info@nebaservice.com</li>
+            <li>+351 xxx-xxx-xxx</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
 <script src="script.js"></script>
 </body>
 </html>
