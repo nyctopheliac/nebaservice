@@ -27,9 +27,6 @@
             <a class="nav-link active" aria-current="page" href="index.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="catalogo.php">Catálogo</a>
           <li class="nav-item">
             <a class="nav-link" href="servicos.php">Serviços</a>
