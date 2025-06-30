@@ -46,7 +46,7 @@
       <div class="row">
         <div class="col-md-6">
           <h4>NebaService</h4>
-          <p>Providing professional services since 2025.</p>
+          <p>Promovemos serviços profissionais desde 2023.</p>
         </div>
         <div class="col-md-3">
           <h5>Links</h5>
