@@ -42,9 +42,9 @@ include 'connect.php';
         <div class="container mt-5">
             <h1 class="text-center">Catálogo de Produtos</h1>
             <div class="row">
-              
+
                 <?php
-                $query = "SELECT * FROM products";
+                $query = "SELECT * FROM produtos";
                 $result = mysqli_query($conn, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo '<div class="col-md-4 mb-4">';
