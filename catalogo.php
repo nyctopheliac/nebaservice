@@ -15,7 +15,7 @@ include 'connect.php';
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">NebaService</a>
+            <a class="navbar-brand" href="index.php">NebaService</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -25,7 +25,10 @@ include 'connect.php';
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="pricing.php">Catálogo</a>
+                      <a class="nav-link" href="catalogo.php">Catálogo</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="servicos.php">Serviços</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">Login</a>
@@ -39,6 +42,7 @@ include 'connect.php';
         <div class="container mt-5">
             <h1 class="text-center">Catálogo de Produtos</h1>
             <div class="row">
+              
                 <?php
                 $query = "SELECT * FROM products";
                 $result = mysqli_query($conn, $query);
@@ -54,6 +58,7 @@ include 'connect.php';
                     echo '</div></div></div>';
                 }
                 ?>
+
             </div>
         </div>
     </main>
