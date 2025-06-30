@@ -28,6 +28,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="catalogo.php">Catálogo</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="servicos.php">Serviços</a>
           </li>
