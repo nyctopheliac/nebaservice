@@ -74,7 +74,7 @@ include 'connect.php';
           </ul>
         </div>
         <div class="col-md-3">
-          <h5>Contact</h5>
+          <h5>Contatos</h5>
           <ul class="list-unstyled">
             <li>info@nebaservice.com</li>
             <li>+351 xxx-xxx-xxx</li>
