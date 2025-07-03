@@ -88,9 +88,17 @@
   <footer class="footer">
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <h4>NebaService</h4>
           <p>Promovemos serviços profissionais desde 2023.</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Precisa de ajuda?</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Ajuda</a></li>
+            <li><a href="#">Envio de encomendas e portes</a></li>
+            <li><a href="#">Trocas e devoluções</a></li>
+          </ul>
         </div>
         <div class="col-md-3">
           <h5>Links</h5>
@@ -100,7 +108,7 @@
             <li><a href="catalogo.php">Catalogo</a></li>
           </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <h5>Contatos</h5>
           <ul class="list-unstyled">
             <li>info@nebaservice.com</li>
