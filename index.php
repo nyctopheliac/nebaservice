@@ -16,28 +16,30 @@
   </button>
 
   <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      <a class="navbar-brand nav-logo"  href="index.php">Neba<span>Service</span></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="catalogo.php">Catálogo</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="servicos.php">Serviços</a>
-          </li>
-          <li class="nav-item ms-lg-3">
-            <a href="login.php" class="btn btn-outline">Login</a>
-          </li>
-        </ul>
+      <div class="container-fluid">
+          <a class="navbar-brand" href="index.php">NebaService</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                  <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+                  <li class="nav-item"><a class="nav-link" href="catalogo.php">Catalogo</a></li>
+                  <li class="nav-item"><a class="nav-link" href="servicos.php">Serviços</a></li>
+                  <li class="nav-item ms-lg-3">
+                      <a href="login.php" class="btn btn-outline">Login</a>
+                  </li>
+                  <li class="nav-item profile-icon">
+                      <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
+                      <div class="profile-dropdown" id="profileDropdown">
+                          <a href="profile.php">Profile Settings</a>
+                          <a href="delivery.php">Check Deliveries</a>
+                          <a href="logout.php">Logout</a>
+                      </div>
+                  </li>
+              </ul>
+          </div>
       </div>
-    </div>
   </nav>
 
   <main class="container">
@@ -46,12 +48,12 @@
         <img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="NebaService Illustration" width="700" height="500" loading="lazy">
       </div>
       <div class="col-lg-6">
-        <h1 class="display-5 fw-bold mb-3">Serviços profissionais para a sua empresa</h1>
-        <p class="lead">A NebaService fornece soluções de alta qualidade adaptadas às suas necessidades. A nossa equipa de especialistas está pronta para o ajudar a fazer crescer o seu negócio de forma eficiente.</p>
+        <h1 class="display-5 fw-bold mb-3">Professional Services for Your Business</h1>
+        <p class="lead">NebaService provides top-quality solutions tailored to your needs. Our team of experts is ready to help you grow your business efficiently.</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Saiba mais</button>
+          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Learn More</button>
           <a href="login.php">
-            <button type="button" class="btn btn-outline btn-lg px-4">Começar agora</button>
+            <button type="button" class="btn btn-outline btn-lg px-4">Get Started</button>
           </a>
         </div>
       </div>
@@ -61,24 +63,24 @@
       <div class="col-md-4">
         <div class="card h-100">
           <div class="card-body">
-            <h3 class="text-accent">Serviço rápido</h3>
-            <p>A nossa equipa fornece soluções rápidas e eficientes para manter a sua empresa a funcionar sem problemas.</p>
+            <h3 class="text-accent">Fast Service</h3>
+            <p>Our team delivers quick and efficient solutions to keep your business running smoothly.</p>
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="card h-100">
           <div class="card-body">
-            <h3 class="text-accent">Apoio fiável</h3>
-            <p>Apoio ao cliente 24/7, para resolver quaisquer problemas ou questões que possa ter.</p>
+            <h3 class="text-accent">Reliable Support</h3>
+            <p>24/7 customer support to address any issues or questions you might have.</p>
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="card h-100">
           <div class="card-body">
-            <h3 class="text-accent">Soluções personalizadas</h3>
-            <p>Serviços personalizados concebidos especificamente para as necessidades da sua empresa.</p>
+            <h3 class="text-accent">Custom Solutions</h3>
+            <p>Tailored services designed specifically for your business requirements.</p>
           </div>
         </div>
       </div>
@@ -88,17 +90,9 @@
   <footer class="footer">
     <div class="container">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <h4>NebaService</h4>
-          <p>Promovemos serviços profissionais desde 2023.</p>
-        </div>
-        <div class="col-md-3">
-          <h5>Precisa de ajuda?</h5>
-          <ul class="list-unstyled">
-            <li><a href="#">Ajuda</a></li>
-            <li><a href="#">Envio de encomendas e portes</a></li>
-            <li><a href="#">Trocas e devoluções</a></li>
-          </ul>
+          <p>Providing professional services since 2025.</p>
         </div>
         <div class="col-md-3">
           <h5>Links</h5>
@@ -108,7 +102,7 @@
             <li><a href="catalogo.php">Catalogo</a></li>
           </ul>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <h5>Contatos</h5>
           <ul class="list-unstyled">
             <li>info@nebaservice.com</li>
@@ -135,11 +129,9 @@
         </svg>
       `;
 
-      // Check user preferences
       const currentTheme = localStorage.getItem('theme') || 
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       
-      // Apply initial theme
       if (currentTheme === 'dark') {
         document.body.classList.add('dark');
         darkModeToggle.innerHTML = moonIcon;
@@ -147,7 +139,6 @@
         darkModeToggle.innerHTML = sunIcon;
       }
 
-      // Theme change handler
       darkModeToggle.addEventListener('click', () => {
         const isDark = document.body.classList.toggle('dark');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');

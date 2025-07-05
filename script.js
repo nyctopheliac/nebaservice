@@ -15,3 +15,20 @@ loginButton.addEventListener('click', function() {
 })
 
 const pathToForm = document.getElementById('pathToForm');
+
+document.addEventListener('DOMContentLoaded', function() {
+    const profileIcon = document.getElementById('profileIcon');
+    const profileDropdown = document.getElementById('profileDropdown');
+
+    profileIcon.addEventListener('click', function() {
+        profileDropdown.classList.toggle('show');
+    });
+
+    window.addEventListener('click', function(event) {
+        if (!event.target.matches('#profileIcon')) {
+            if (profileDropdown.classList.contains('show')) {
+                profileDropdown.classList.remove('show');
+            }
+        }
+    });
+});

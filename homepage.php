@@ -9,25 +9,23 @@ if (!isset($_SESSION['email'])) {
 
 $email = $_SESSION['email'];
 
-// Fetch user details
+// Saca os detalhes do utilizador
 $query = mysqli_query($conn, "SELECT * FROM utilizadores WHERE email='$email'");
 $user = mysqli_fetch_assoc($query);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Handle profile updates
+    // Atualizações aos perfis
     if (isset($_POST['update'])) {
         $newEmail = $_POST['email'];
         $newAddress = $_POST['address'];
         $newPassword = $_POST['password'];
-
-        // Update email and address
         $updateQuery = "UPDATE utilizadores SET email='$newEmail', morada='$newAddress' WHERE email='$email'";
         if (!empty($newPassword)) {
             $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
             $updateQuery = "UPDATE utilizadores SET email='$newEmail', morada='$newAddress', passwordHash='$hashedPassword' WHERE email='$email'";
         }
         mysqli_query($conn, $updateQuery);
-        $_SESSION['email'] = $newEmail; // Update session email
+        $_SESSION['email'] = $newEmail; // Atualiza o email na sessão
         echo "<script>alert('Profile updated successfully!');</script>";
     }
 }
