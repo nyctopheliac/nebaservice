@@ -30,13 +30,8 @@
                       <a href="login.php" class="btn btn-outline">Login</a>
                   </li>
                   <li class="nav-item profile-icon">
-<<<<<<< HEAD
                       <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
                       <div class="profile-dropdown" id="profileDropdown">~
-=======
-                      <img src="imagens/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
-                      <div class="profile-dropdown" id="profileDropdown">
->>>>>>> 4647b88a1aff83b4687965ec4e047e6468730114
                           <a href="profile.php">Profile Settings</a>
                           <a href="delivery.php">Check Deliveries</a>
                           <a href="logout.php">Logout</a>
