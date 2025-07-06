@@ -119,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <ul class="list-unstyled">
             <li>info@nebaservice.com</li>
             <li>+351 xxx-xxx-xxx</li>
+            <li><a href="#">Instagram</a></li>
           </ul>
         </div>
       </div>
