@@ -18,7 +18,7 @@
 
   <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-          <a class="navbar-brand nav-logo" href="index.php">NebaService</a>
+          <a class="navbar-brand nav-logo" href="index.php">Neba<span>Service</span></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
@@ -52,7 +52,9 @@
         <h1 class="display-5 fw-bold mb-3">Serviços Profissionais para o seu Negócio</h1>
         <p class="lead">A NebaService oferece soluções de alta qualidade, adaptadas às suas necessidades. A nossa equipa de especialistas está pronta para o ajudar a expandir o seu negócio de forma eficiente.</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Saiba Mais</button>
+          <a href="ajuda.php">
+            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Saiba Mais</button>
+          </a>
           <a href="login.php">
             <button type="button" class="btn btn-outline btn-lg px-4">Começar</button>
           </a>

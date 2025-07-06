@@ -25,10 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Informação de Entrega</title>
 </head>
 <body>
+
     <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
@@ -45,17 +47,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="catalogo.php">Catálogo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalogo.php">Catalogo</a></li>
                     <li class="nav-item"><a class="nav-link" href="servicos.php">Serviços</a></li>
                     <li class="nav-item ms-lg-3">
                         <a href="login.php" class="btn btn-outline">Login</a>
                     </li>
                     <li class="nav-item profile-icon">
                         <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
-                        <div class="profile-dropdown" id="profileDropdown">
-                            <a href="profile.php">Definições de Perfil</a>
-                            <a href="delivery.php">Verificar Entregas</a>
-                            <a href="logout.php">Sair</a>
+                        <div class="profile-dropdown" id="profileDropdown">~
+                            <a href="profile.php">Profile Settings</a>
+                            <a href="delivery.php">Check Deliveries</a>
+                            <a href="logout.php">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -63,34 +65,64 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <h1>Informação de Entrega</h1>
-        <form method="post">
-            <label for="deliveryAddress">Morada de Entrega:</label>
-            <input type="text" name="deliveryAddress" id="deliveryAddress" value="<?php echo $user['morada']; ?>" required>
-            <input type="submit" value="Atualizar Morada de Entrega">
-        </form>
+    <main>
+        <div class="container mt-5">
+            <h1>Informação de Entrega</h1>
+            <form method="post">
+                <label for="deliveryAddress">Morada de Entrega:</label>
+                <input type="text" name="deliveryAddress" id="deliveryAddress" value="<?php echo $user['morada']; ?>" required>
+                <input type="submit" value="Atualizar Morada de Entrega">
+            </form>
 
-        <h2>O seu Histórico de Entregas</h2>
-        <div id="deliveryHistory">
-            <?php
-            $historyQuery = mysqli_query($conn, "SELECT * FROM delivery_history WHERE user_email='$email'");
-            if (mysqli_num_rows($historyQuery) > 0) {
-                echo "<ul>";
-                while ($row = mysqli_fetch_assoc($historyQuery)) {
-                    echo "<li>Entrega para: " . htmlspecialchars($row['address']) . " em " . htmlspecialchars($row['date']) . "</li>";
+            <h2>O seu Histórico de Entregas</h2>
+            <div id="deliveryHistory">
+                <?php
+                $historyQuery = mysqli_query($conn, "SELECT * FROM delivery_history WHERE user_email='$email'");
+                if (mysqli_num_rows($historyQuery) > 0) {
+                    echo "<ul>";
+                    while ($row = mysqli_fetch_assoc($historyQuery)) {
+                        echo "<li>Entrega para: " . htmlspecialchars($row['address']) . " em " . htmlspecialchars($row['date']) . "</li>";
+                    }
+                    echo "</ul>";
+                } else {
+                    echo "<p>Nenhum histórico de entregas encontrado.</p>";
                 }
-                echo "</ul>";
-            } else {
-                echo "<p>Nenhum histórico de entregas encontrado.</p>";
-            }
-            ?>
+                ?>
+            </div>
         </div>
-    </div>
+    </main>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 NebaService. All rights reserved.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>NebaService</h4>
+                    <p>Promovemos serviços profissionais desde 2023.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Precisa de ajuda?</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="ajuda.php">Ajuda</a></li>
+                        <li><a href="encomendas.php">Envio de encomendas e portes</a></li>
+                        <li><a href="trocaedevo.php">Trocas e devoluções</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="servicos.php">Serviços</a></li>
+                        <li><a href="catalogo.php">Catalogo</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h5>Contactos</h5>
+                    <ul class="list-unstyled">
+                        <li>info@nebaservice.com</li>
+                        <li>+351 xxx-xxx-xxx</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </footer>
 
