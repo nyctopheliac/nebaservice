@@ -30,6 +30,9 @@
                   <li class="nav-item ms-lg-3">
                       <a href="login.php" class="btn btn-outline">Login</a>
                   </li>
+                  <li class="nav-item ms-lg-3">
+                      <a href="logout.php" class="btn btn-outline">Logout</a>
+                  </li>
                   <li class="nav-item profile-icon">
                       <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
                       <div class="profile-dropdown" id="profileDropdown">~
