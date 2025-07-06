@@ -91,19 +91,28 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
+        <div class="col-md-4">
           <h4>NebaService</h4>
-          <p>Providing professional services since 2025.</p>
+          <p>Promovemos serviços profissionais desde 2023.</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Precisa de ajuda?</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Ajuda</a></li>
+            <li><a href="#">Envio de encomendas e portes</a></li>
+            <li><a href="#">Trocas e devoluções</a></li>
+          </ul>
         </div>
         <div class="col-md-3">
           <h5>Links</h5>
           <ul class="list-unstyled">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
+@@ -100,28 +108,28 @@
             <li><a href="catalogo.php">Catalogo</a></li>
           </ul>
         </div>
         <div class="col-md-3">
-          <h5>Contatos</h5>
+        <div class="col-md-2">
+          <h5>Contactos</h5>
           <ul class="list-unstyled">
             <li>info@nebaservice.com</li>
             <li>+351 xxx-xxx-xxx</li>
