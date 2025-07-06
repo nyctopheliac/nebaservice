@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
     // Prevenir injeções
-    $stmt = $conn->prepare("INSERT INTO utilizadores (nomeUtilizador, email, passwordHash) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO utilizadores (nomeUtilizador, email, passwordHash) VALUES ($username, $email, $hashedPassword)");
     $stmt->bind_param($username, $email, $hashedPassword);
     $stmt->execute();
 
