@@ -8,10 +8,6 @@
     <title>NebaService</title>
 </head>
 <body>
-<<<<<<< HEAD
-
-=======
->>>>>>> 45aa787aa46344b76fe354826ce3e957e0668eb3
   <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5"></circle>
