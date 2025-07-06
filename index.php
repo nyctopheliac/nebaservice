@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <title>NebaService</title>
 </head>
+
 <body>
+  
   <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5"></circle>
@@ -17,7 +19,7 @@
 
   <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-          <a class="navbar-brand" href="index.php">NebaService</a>
+          <a class="navbar-brand nav-logo" href="index.php">Neba<span>Service</span></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
@@ -157,5 +159,6 @@
       });
     });
   </script>
+
 </body>
 </html>
