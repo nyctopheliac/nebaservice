@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-PT ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="style.css">
     <title>NebaService</title>
 </head>
-
 <body>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 45aa787aa46344b76fe354826ce3e957e0668eb3
   <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5"></circle>
@@ -19,7 +21,7 @@
 
   <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-          <a class="navbar-brand nav-logo" href="index.php">Neba<span>Service</span></a>
+          <a class="navbar-brand nav-logo" href="index.php">NebaService</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
@@ -33,7 +35,7 @@
                   </li>
                   <li class="nav-item profile-icon">
                       <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
-                      <div class="profile-dropdown" id="profileDropdown">
+                      <div class="profile-dropdown" id="profileDropdown">~
                           <a href="profile.php">Profile Settings</a>
                           <a href="delivery.php">Check Deliveries</a>
                           <a href="logout.php">Logout</a>
@@ -50,12 +52,12 @@
         <img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="NebaService Illustration" width="700" height="500" loading="lazy">
       </div>
       <div class="col-lg-6">
-        <h1 class="display-5 fw-bold mb-3">Professional Services for Your Business</h1>
-        <p class="lead">NebaService provides top-quality solutions tailored to your needs. Our team of experts is ready to help you grow your business efficiently.</p>
+        <h1 class="display-5 fw-bold mb-3">Serviços Profissionais para o seu Negócio</h1>
+        <p class="lead">A NebaService oferece soluções de alta qualidade, adaptadas às suas necessidades. A nossa equipa de especialistas está pronta para o ajudar a expandir o seu negócio de forma eficiente.</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Learn More</button>
+          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Saiba Mais</button>
           <a href="login.php">
-            <button type="button" class="btn btn-outline btn-lg px-4">Get Started</button>
+            <button type="button" class="btn btn-outline btn-lg px-4">Começar</button>
           </a>
         </div>
       </div>
@@ -65,24 +67,24 @@
       <div class="col-md-4">
         <div class="card h-100">
           <div class="card-body">
-            <h3 class="text-accent">Fast Service</h3>
-            <p>Our team delivers quick and efficient solutions to keep your business running smoothly.</p>
+            <h3 class="text-accent">Serviço Rápido</h3>
+            <p>A nossa equipa oferece soluções rápidas e eficientes para manter o seu negócio a funcionar sem problemas.</p>
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="card h-100">
           <div class="card-body">
-            <h3 class="text-accent">Reliable Support</h3>
-            <p>24/7 customer support to address any issues or questions you might have.</p>
+            <h3 class="text-accent">Suporte Confiável</h3>
+            <p>Apoio ao cliente 24/7 para resolver quaisquer problemas ou questões que possa ter.</p>
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="card h-100">
           <div class="card-body">
-            <h3 class="text-accent">Custom Solutions</h3>
-            <p>Tailored services designed specifically for your business requirements.</p>
+            <h3 class="text-accent">Soluções Personalizadas</h3>
+            <p>Serviços personalizados, concebidos especificamente para as necessidades do seu negócio.</p>
           </div>
         </div>
       </div>
@@ -92,7 +94,8 @@
   <footer class="footer">
     <div class="container">
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
+        <div class="col-md-4">
           <h4>NebaService</h4>
           <p>Promovemos serviços profissionais desde 2023.</p>
         </div>
@@ -104,22 +107,19 @@
             <li><a href="trocaedevo.php">Trocas e devoluções</a></li>
           </ul>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <h5>Links</h5>
           <ul class="list-unstyled">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
+@@ -100,28 +108,28 @@
             <li><a href="catalogo.php">Catalogo</a></li>
           </ul>
         </div>
+        <div class="col-md-3">
         <div class="col-md-2">
           <h5>Contactos</h5>
           <ul class="list-unstyled">
             <li>info@nebaservice.com</li>
             <li>+351 xxx-xxx-xxx</li>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Instagram</a></li>
           </ul>
         </div>
       </div>
@@ -159,6 +159,5 @@
       });
     });
   </script>
-
 </body>
 </html>

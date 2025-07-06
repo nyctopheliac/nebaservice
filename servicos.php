@@ -34,8 +34,6 @@
                   <li class="nav-item profile-icon">
                       <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
                       <div class="profile-dropdown" id="profileDropdown">
-                          <a href="profile.php">Profile Settings</a>
-                          <a href="delivery.php">Check Deliveries</a>
                           <a href="logout.php">Logout</a>
                       </div>
                   </li>
@@ -46,7 +44,7 @@
 
   <main class="container">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5"><div class="col-10 col-sm-8 col-lg-6">
-        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Header</h1>    
+        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Cabeçalho</h1>    
     </div>
   </main>
 
@@ -84,6 +82,27 @@
                 </ul>
             </div>
         </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h4>NebaService</h4>
+          <p>A fornecer serviços profissionais desde 2025.</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="servicos.php">Serviços</a></li>
+            <li><a href="catalogo.php">Catalogo</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Contatos</h5>
+          <ul class="list-unstyled">
+            <li>info@nebaservice.com</li>
+            <li>+351 xxx-xxx-xxx</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </footer>
 
