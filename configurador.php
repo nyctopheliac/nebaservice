@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    
+
   <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5"></circle>
@@ -83,9 +83,9 @@
                     <div class="col-md-3">
                         <h5>Precisa de ajuda?</h5>
                         <ul class="list-unstyled">
-                            <li><a href="#">Ajuda</a></li>
-                            <li><a href="#">Envio de encomendas e portes</a></li>
-                            <li><a href="#">Trocas e devoluções</a></li>
+                            <li><a href="ajuda.php">Ajuda</a></li>
+                            <li><a href="encomendas.php">Envio de encomendas e portes</a></li>
+                            <li><a href="trocaedevo.php">Trocas e devoluções</a></li>
                         </ul>
                         </div>
                         <div class="col-md-2">
