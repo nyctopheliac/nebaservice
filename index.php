@@ -33,7 +33,7 @@
                   </li>
                   <li class="nav-item profile-icon">
                       <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
-                      <div class="profile-dropdown" id="profileDropdown">
+                      <div class="profile-dropdown" id="profileDropdown">~
                           <a href="profile.php">Profile Settings</a>
                           <a href="delivery.php">Check Deliveries</a>
                           <a href="logout.php">Logout</a>

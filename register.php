@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
     // Prevenir injeções
-    $stmt = $conn->prepare("INSERT INTO utilizadores (nomeUtilizador, email, passwordHash) VALUES ($username, $email, $hashedPassword)");
-    $stmt->bind_param($username, $email, $hashedPassword);
+    $stmt = $conn->prepare("INSERT INTO utilizadores (nomeUtilizador, email, passwordHash) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $username, $email, $hashedPassword);
     $stmt->execute();
 
     // Verificar se o utilizador foi criado com sucesso
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container mt-5">
         <h2>Registar</h2>
-        <form action="process_register.php" method="POST">
+        <form action="register.php" method="POST">
             <div class="form-group">
                 <label for="username">Nome de Utilizador</label>
                 <input type="text" class="form-control" id="username" name="username" required>
@@ -61,6 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
                 <label for="password">Senha</label>
                 <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Senha</label>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
             </div>
             <button type="submit" class="btn btn-primary">Criar Conta</button>
         </form>

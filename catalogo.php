@@ -19,12 +19,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newEmail = $_POST['email'];
         $newAddress = $_POST['address'];
         $newPassword = $_POST['password'];
-        $updateQuery = "UPDATE utilizadores SET email='$newEmail', morada='$newAddress' WHERE email='$email'";
+
         if (!empty($newPassword)) {
             $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
-            $updateQuery = "UPDATE utilizadores SET email='$newEmail', morada='$newAddress', passwordHash='$hashedPassword' WHERE email='$email'";
+            $stmt = $conn->prepare("UPDATE utilizadores SET email = ?, morada = ?, passwordHash = ? WHERE email = ?");
+            $stmt->bind_param("ssss", $newEmail, $newAddress, $hashedPassword, $email);
+        } else {
+            $stmt = $conn->prepare("UPDATE utilizadores SET email = ?, morada = ? WHERE email = ?");
+            $stmt->bind_param("sss", $newEmail, $newAddress, $email);
         }
-        mysqli_query($conn, $updateQuery);
+        $stmt->execute();
+
         $_SESSION['email'] = $newEmail; // Update ao email na sessão
         echo "<script>alert('Profile updated successfully!');</script>";
     }
