@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-PT ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>NebaService</title>
 </head>
-
 <body>
-  
   <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5"></circle>
@@ -19,7 +17,7 @@
 
   <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-          <a class="navbar-brand nav-logo" href="index.php">Neba<span>Service</span></a>
+          <a class="navbar-brand nav-logo" href="index.php">NebaService</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
@@ -32,8 +30,13 @@
                       <a href="login.php" class="btn btn-outline">Login</a>
                   </li>
                   <li class="nav-item profile-icon">
+<<<<<<< HEAD
                       <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
                       <div class="profile-dropdown" id="profileDropdown">~
+=======
+                      <img src="imagens/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
+                      <div class="profile-dropdown" id="profileDropdown">
+>>>>>>> 4647b88a1aff83b4687965ec4e047e6468730114
                           <a href="profile.php">Profile Settings</a>
                           <a href="delivery.php">Check Deliveries</a>
                           <a href="logout.php">Logout</a>
@@ -92,7 +95,8 @@
   <footer class="footer">
     <div class="container">
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
+        <div class="col-md-4">
           <h4>NebaService</h4>
           <p>Promovemos serviços profissionais desde 2023.</p>
         </div>
@@ -104,22 +108,19 @@
             <li><a href="#">Trocas e devoluções</a></li>
           </ul>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <h5>Links</h5>
           <ul class="list-unstyled">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
+@@ -100,28 +108,28 @@
             <li><a href="catalogo.php">Catalogo</a></li>
           </ul>
         </div>
+        <div class="col-md-3">
         <div class="col-md-2">
           <h5>Contactos</h5>
           <ul class="list-unstyled">
             <li>info@nebaservice.com</li>
             <li>+351 xxx-xxx-xxx</li>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Instagram</a></li>
           </ul>
         </div>
       </div>
@@ -159,6 +160,5 @@
       });
     });
   </script>
-
 </body>
 </html>
