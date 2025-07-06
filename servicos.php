@@ -44,7 +44,7 @@
 
   <main class="container">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5"><div class="col-10 col-sm-8 col-lg-6">
-        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Header</h1>    
+        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Cabeçalho</h1>    
     </div>
   </main>
 
@@ -53,7 +53,7 @@
       <div class="row">
         <div class="col-md-6">
           <h4>NebaService</h4>
-          <p>Providing professional services since 2025.</p>
+          <p>A fornecer serviços profissionais desde 2025.</p>
         </div>
         <div class="col-md-3">
           <h5>Links</h5>

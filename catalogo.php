@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->execute();
 
         $_SESSION['email'] = $newEmail; // Update ao email na sessão
-        echo "<script>alert('Profile updated successfully!');</script>";
+        echo "<script>alert('Perfil atualizado com sucesso!');</script>";
     }
 }
 ?>
@@ -85,16 +85,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     echo '<img src="path/to/image.jpg" class="card-img-top" alt="'.$row['productName'].'">';
                     echo '<div class="card-body">';
                     echo '<h5 class="card-title">'.$row['productName'].'</h5>';
-                    echo '<p class="card-text">Model: '.$row['productModel'].'</p>';
-                    echo '<p class="card-text">Price: €'.$row['price'].'</p>';
-                    echo '<a href="#" class="btn btn-primary">Add to Cart</a>';
+                    echo '<p class="card-text">Modelo: '.$row['productModel'].'</p>';
+                    echo '<p class="card-text">Preço: €'.$row['price'].'</p>';
+                    echo '<a href="#" class="btn btn-primary">Adicionar ao Carrinho</a>';
                     echo '</div></div></div>';
                 }
                 ?>
             </div>
         </div>
 
-        <!-- Search and Filter -->
         <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div class="relative w-full md:w-auto">
                 <input type="text" placeholder="Buscar produtos..." class="search-box pl-10 pr-4 py-2 border rounded-full w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
@@ -103,9 +102,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </svg>
             </div>
         </div>
-        <!-- Product Grid -->
+        <!-- Grelha de Produtos -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <!-- Pagination -->
+        <!-- Paginação -->
         <div class="flex justify-center mt-10">
             <nav class="inline-flex rounded-md shadow">
                 <a href="#" class="px-4 py-2 text-gray-500 bg-white rounded-l-md border border-gray-300 hover:bg-gray-50">Anterior</a>

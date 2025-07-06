@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: index.php");
         exit();
     } else {
-        die("Failed to create user.");
+        die("Falha ao criar o utilizador.");
     }
 }
 ?>

@@ -48,12 +48,12 @@
         <img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="NebaService Illustration" width="700" height="500" loading="lazy">
       </div>
       <div class="col-lg-6">
-        <h1 class="display-5 fw-bold mb-3">Professional Services for Your Business</h1>
-        <p class="lead">NebaService provides top-quality solutions tailored to your needs. Our team of experts is ready to help you grow your business efficiently.</p>
+        <h1 class="display-5 fw-bold mb-3">Serviços Profissionais para o seu Negócio</h1>
+        <p class="lead">A NebaService oferece soluções de alta qualidade, adaptadas às suas necessidades. A nossa equipa de especialistas está pronta para o ajudar a expandir o seu negócio de forma eficiente.</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Learn More</button>
+          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Saiba Mais</button>
           <a href="login.php">
-            <button type="button" class="btn btn-outline btn-lg px-4">Get Started</button>
+            <button type="button" class="btn btn-outline btn-lg px-4">Começar</button>
           </a>
         </div>
       </div>
@@ -63,24 +63,24 @@
       <div class="col-md-4">
         <div class="card h-100">
           <div class="card-body">
-            <h3 class="text-accent">Fast Service</h3>
-            <p>Our team delivers quick and efficient solutions to keep your business running smoothly.</p>
+            <h3 class="text-accent">Serviço Rápido</h3>
+            <p>A nossa equipa oferece soluções rápidas e eficientes para manter o seu negócio a funcionar sem problemas.</p>
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="card h-100">
           <div class="card-body">
-            <h3 class="text-accent">Reliable Support</h3>
-            <p>24/7 customer support to address any issues or questions you might have.</p>
+            <h3 class="text-accent">Suporte Confiável</h3>
+            <p>Apoio ao cliente 24/7 para resolver quaisquer problemas ou questões que possa ter.</p>
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="card h-100">
           <div class="card-body">
-            <h3 class="text-accent">Custom Solutions</h3>
-            <p>Tailored services designed specifically for your business requirements.</p>
+            <h3 class="text-accent">Soluções Personalizadas</h3>
+            <p>Serviços personalizados, concebidos especificamente para as necessidades do seu negócio.</p>
           </div>
         </div>
       </div>

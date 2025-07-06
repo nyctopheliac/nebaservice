@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         mysqli_query($conn, $updateQuery);
         $_SESSION['email'] = $newEmail; // Atualiza o email na sessão
-        echo "<script>alert('Profile updated successfully!');</script>";
+        echo "<script>alert('Perfil atualizado com sucesso!');</script>";
     }
 }
 ?>
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Manage Profile</title>
+    <title>Gerir Perfil</title>
 </head>
 <body>
     <nav>
@@ -46,23 +46,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <li><a href="catalogo.php">Catálogo</a>
         </li>
             <li class="nav-item">
-                <a class="nav-link" href="servicos.php">Serviços</a>
+                <a class="nav-link" href="servicos.php">Serviços</a>
             </li>
             <li><a href="login.php">Login</a></li>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="logout.php">Sair</a></li>
         </ul>
     </nav>
     
     <div>
-        <h1>Manage Your Profile</h1>
+        <h1>Gerir o Seu Perfil</h1>
         <form method="post">
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" value="<?php echo $user['email']; ?>" required>
-            <label for="address">Delivery Address:</label>
+            <label for="address">Morada de Entrega:</label>
             <input type="text" name="address" id="address" value="<?php echo $user['morada']; ?>" required>
-            <label for="password">New Password:</label>
+            <label for="password">Nova Palavra-passe:</label>
             <input type="password" name="password" id="password">
-            <input type="submit" name="update" value="Update Profile">
+            <input type="submit" name="update" value="Atualizar Perfil">
         </form>
     </div>
 
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <div class="row">
         <div class="col-md-6">
           <h4>NebaService</h4>
-          <p>Providing professional services since 2025.</p>
+          <p>A fornecer serviços profissionais desde 2025.</p>
         </div>
         <div class="col-md-3">
           <h5>Links</h5>

@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
     if (empty($email) || empty($password)) {
-        die("All fields are required.");
+        die("Todos os campos são obrigatórios.");
     }
 
     // Proteção contra injeções
@@ -27,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: index.php");
             exit();
         } else {
-            die("Invalid password.");
+            die("Palavra-passe inválida.");
         }
     } else {
-        die("No user found with that email.");
+        die("Nenhum utilizador encontrado com esse email.");
     }
 }
 ?>
