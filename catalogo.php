@@ -52,15 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div>
         <h1>Catálogo de Produtos</h1>
-        <form method="post">
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" value="<?php echo $user['email']; ?>" required>
-            <label for="address">Delivery Address:</label>
-            <input type="text" name="address" id="address" value="<?php echo $user['morada']; ?>" required>
-            <label for="password">New Password:</label>
-            <input type="password" name="password" id="password">
-            <input type="submit" name="update" value="Update Profile">
-        </form>
+        <!-- fazer a porra do catálogo -->
     </div>
 
     <footer class="footer">

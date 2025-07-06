@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </nav>
 
     <div class="container mt-5">
-        <h1>Delivery Information</h1>
+        <h1>Informação de Entrega</h1>
         <form method="post">
             <label for="deliveryAddress">Delivery Address:</label>
             <input type="text" name="deliveryAddress" id="deliveryAddress" value="<?php echo $user['morada']; ?>" required>

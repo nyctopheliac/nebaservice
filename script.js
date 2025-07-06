@@ -16,19 +16,16 @@ loginButton.addEventListener('click', function() {
 
 const pathToForm = document.getElementById('pathToForm');
 
-document.addEventListener('DOMContentLoaded', function() {
-    const profileIcon = document.getElementById('profileIcon');
-    const profileDropdown = document.getElementById('profileDropdown');
-
-    profileIcon.addEventListener('click', function() {
-        profileDropdown.classList.toggle('show');
-    });
-
-    window.addEventListener('click', function(event) {
-        if (!event.target.matches('#profileIcon')) {
-            if (profileDropdown.classList.contains('show')) {
-                profileDropdown.classList.remove('show');
-            }
-        }
-    });
-});
+/*
+document.addEventListener("DOMContentLoaded", function() {
+    const isLoggedIn = logic to check if user is logged in ;
+    const loginButton = document.getElementById("loginButton");
+    const profileDropdown = document.getElementById("profileDropdown");
+    if (isLoggedIn) {
+        loginButton.style.display = "none";
+        profileDropdown.style.display = "block";
+    } else {
+        loginButton.style.display = "block";
+        profileDropdown.style.display = "none";
+    }
+});*/

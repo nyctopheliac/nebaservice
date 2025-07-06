@@ -40,33 +40,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="index.php">NebaService</a></li>
-            <li><a href="catalogo.php">Catálogo</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
-        </ul>
-    </nav>
-
-    <div>
-        <h1>Login</h1>
-        <form method="post">
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" required>
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required>
-            <input type="submit" value="Login">
+    <div class="container mt-5">
+        <h2>Login</h2>
+        <form action="process_login.php" method="POST">
+            <div class="form-group">
+                <label for="username">Nome de Usuário</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
         </form>
+        <p class="mt-3">Não tem uma conta? <a href="register.php" class="btn btn-link">Registe-se aqui</a>.</p>
     </div>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 NebaService. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
