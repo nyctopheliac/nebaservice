@@ -8,6 +8,7 @@
     <title>NebaService</title>
 </head>
 <body>
+
   <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5"></circle>
@@ -90,12 +91,11 @@
   <footer class="footer">
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
         <div class="col-md-4">
           <h4>NebaService</h4>
           <p>Promovemos serviços profissionais desde 2023.</p>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <h5>Precisa de ajuda?</h5>
           <ul class="list-unstyled">
             <li><a href="ajuda.php">Ajuda</a></li>
@@ -103,14 +103,14 @@
             <li><a href="trocaedevo.php">Trocas e devoluções</a></li>
           </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <h5>Links</h5>
           <ul class="list-unstyled">
-@@ -100,28 +108,28 @@
+            <li><a href="index.php">Home</a></li>
+            <li><a href="servicos.php">Serviços</a></li>
             <li><a href="catalogo.php">Catalogo</a></li>
           </ul>
         </div>
-        <div class="col-md-3">
         <div class="col-md-2">
           <h5>Contactos</h5>
           <ul class="list-unstyled">
