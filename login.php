@@ -49,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2>Login</h2>
         <form action="process_login.php" method="POST">
             <div class="form-group">
-                <label for="username">Nome de Usuário</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <label for="username">Email</label>
+                <input type="text" class="form-control" id="email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="password">Senha</label>
