@@ -82,26 +82,6 @@
                 </ul>
             </div>
         </div>
-      <div class="row">
-        <div class="col-md-6">
-          <h4>NebaService</h4>
-          <p>A fornecer serviços profissionais desde 2025.</p>
-        </div>
-        <div class="col-md-3">
-          <h5>Links</h5>
-          <ul class="list-unstyled">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
-            <li><a href="catalogo.php">Catalogo</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h5>Contatos</h5>
-          <ul class="list-unstyled">
-            <li>info@nebaservice.com</li>
-            <li>+351 xxx-xxx-xxx</li>
-          </ul>
-        </div>
       </div>
     </div>
   </footer>
