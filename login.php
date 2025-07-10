@@ -8,29 +8,30 @@ if (isset($_SESSION['email'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
     if (empty($email) || empty($password)) {
-        die("Todos os campos são obrigatórios.");
-    }
-
-    // Proteção contra injeções
-    $stmt = $conn->prepare("SELECT * FROM utilizadores WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-        if (password_verify($password, $user['passwordHash'])) {
-            $_SESSION['email'] = $user['email'];
-            header("Location: index.php");
-            exit();
-        } else {
-            die("Palavra-passe inválida.");
-        }
+        $errorMessage = "Todos os campos são obrigatórios.";
     } else {
-        die("Nenhum utilizador encontrado com esse email.");
+        // Proteção contra injeções
+        $stmt = $conn->prepare("SELECT * FROM utilizadores WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            if (password_verify($password, $user['passwordHash'])) {
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['userID'] = $user['ID'];
+                header("Location: index.php");
+                exit();
+            } else {
+                $errorMessage = "Palavra-passe ou email inválido.";
+            }
+        } else {
+            $errorMessage = "Palavra-passe ou email inválido.";
+        }
     }
 }
 ?>
