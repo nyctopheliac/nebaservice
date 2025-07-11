@@ -16,40 +16,13 @@
     </svg>
   </button>
 
-  <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-          <a class="navbar-brand nav-logo" href="index.php">Neba<span>Service</span></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                  <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                  <li class="nav-item"><a class="nav-link" href="catalogo.php">Catalogo</a></li>
-                  <li class="nav-item"><a class="nav-link" href="servicos.php">Serviços</a></li>
-                  <li class="nav-item ms-lg-3">
-                      <a href="login.php" class="btn btn-outline">Login</a>
-                  </li>
-                  <li class="nav-item ms-lg-3">
-                      <a href="logout.php" class="btn btn-outline">Logout</a>
-                  </li>
-                  <li class="nav-item profile-icon">
-                      <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
-                      <div class="profile-dropdown" id="profileDropdown">~
-                          <a href="profile.php">Profile Settings</a>
-                          <a href="delivery.php">Check Deliveries</a>
-                          <a href="logout.php">Logout</a>
-                      </div>
-                  </li>
-              </ul>
-          </div>
-      </div>
-  </nav>
+  <?php include 'navbar.php'; ?>
 
   <main class="container">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
       <div class="col-10 col-sm-8 col-lg-6">
-        <img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="NebaService Illustration" width="700" height="500" loading="lazy">
+        <img src="imagens/computadorlight.png" class="mx-lg-auto img-fluid theme-image-light" alt="NebaService Illustration" width="400" height="500" loading="lazy">
+        <img src="imagens/computador.png" class="mx-lg-auto img-fluid theme-image-dark" alt="NebaService Illustration" width="400" height="500" loading="lazy">
       </div>
       <div class="col-lg-6">
         <h1 class="display-5 fw-bold mb-3">Serviços Profissionais para o seu Negócio</h1>
@@ -65,68 +38,89 @@
       </div>
     </div>
 
-    <div class="row g-4 py-5">
-      <div class="col-md-4">
-        <div class="card h-100">
-          <div class="card-body">
-            <h3 class="text-accent">Serviço Rápido</h3>
-            <p>A nossa equipa oferece soluções rápidas e eficientes para manter o seu negócio a funcionar sem problemas.</p>
+    <!-- Carousel de Destaques -->
+    <div class="carousel-container rounded-3 my-5 py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 position-relative">
+          <h2 class="text-center mb-4">Os Nossos Destaques</h2>
+          <div id="featureCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <!-- Slide 1 -->
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body text-center">
+                        <h3 class="text-accent">Confiança Garantida</h3>
+                        <p>Somos uma loja especializada em informática, com atendimento profissional e dedicado ao cliente.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body text-center">
+                        <h3 class="text-accent">Equipa Técnica</h3>
+                        <p>Tens dúvidas? A nossa equipa está pronta para te ajudar a escolher ou resolver qualquer problema.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body text-center">
+                        <h3 class="text-accent">Clientes Satisfeitos</h3>
+                        <p>Valorizamos cada cliente. Trabalhamos para garantir uma experiência positiva em cada compra.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Slide 2 -->
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body text-center">
+                        <h3 class="text-accent">Envios Rápidos</h3>
+                        <p>Entregas seguras de 24 a 48h para todo o país. Compra com confiança, recebe sem demoras.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body text-center">
+                        <h3 class="text-accent">Grande Variedade</h3>
+                        <p>Trabalhamos com as melhores marcas e temos stock atualizado para todos os tipos de clientes.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body text-center">
+                        <h3 class="text-accent">Apoio Pós-Venda</h3>
+                        <p>Após a compra, continuamos contigo. Garantias, assistência e suporte sempre que precisares.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#featureCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Anterior</span></button>
+          <button class="carousel-control-next" type="button" data-bs-target="#featureCarousel" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Próximo</span></button>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card h-100">
-          <div class="card-body">
-            <h3 class="text-accent">Suporte Confiável</h3>
-            <p>Apoio ao cliente 24/7 para resolver quaisquer problemas ou questões que possa ter.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100">
-          <div class="card-body">
-            <h3 class="text-accent">Soluções Personalizadas</h3>
-            <p>Serviços personalizados, concebidos especificamente para as necessidades do seu negócio.</p>
-          </div>
-        </div>
+    </div>
+
+    <!-- Informação Adicional -->
+    <div class="row py-5">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2>Porquê escolher a nossa loja?</h2>
+        <p class="lead">Descobre o que nos distingue. Do atendimento ao pós-venda, trabalhamos para oferecer a melhor experiência em informática — com confiança, rapidez e apoio especializado.</p>
       </div>
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <h4>NebaService</h4>
-          <p>Promovemos serviços profissionais desde 2023.</p>
-        </div>
-        <div class="col-md-4">
-          <h5>Precisa de ajuda?</h5>
-          <ul class="list-unstyled">
-            <li><a href="ajuda.php">Ajuda</a></li>
-            <li><a href="encomendas.php">Envio de encomendas e portes</a></li>
-            <li><a href="trocaedevo.php">Trocas e devoluções</a></li>
-          </ul>
-        </div>
-        <div class="col-md-2">
-          <h5>Links</h5>
-          <ul class="list-unstyled">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
-            <li><a href="catalogo.php">Catalogo</a></li>
-          </ul>
-        </div>
-        <div class="col-md-2">
-          <h5>Contactos</h5>
-          <ul class="list-unstyled">
-            <li>info@nebaservice.com</li>
-            <li>+351 xxx-xxx-xxx</li>
-            <li><a href="https://www.instagram.com//">Instagram</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <?php include 'footer.php'; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script>

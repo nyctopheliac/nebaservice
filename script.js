@@ -27,17 +27,4 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
         darkModeToggle.innerHTML = isDark ? moonIcon : sunIcon;
     });
-
-    const profileIcon = document.getElementById('profileIcon');
-    const profileDropdown = document.getElementById('profileDropdown');
-
-    profileIcon.addEventListener('click', () => {
-        profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
-    });
-
-    window.addEventListener('click', function(e) {
-        if (!profileIcon.contains(e.target)) {
-            profileDropdown.style.display = 'none';
-        }
-    });
 });

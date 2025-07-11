@@ -22,6 +22,9 @@
   }
   
   body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
@@ -29,18 +32,16 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   
-  /* Troca das cores para Dark Mode */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --primary-color: var(--dark-primary);
-      --secondary-color: var(--dark-secondary);
-      --accent-color: var(--dark-accent);
-      --text-color: var(--dark-text);
-      --text-light: var(--dark-text-light);
-      --background-color: var(--dark-bg);
-      --card-bg: var(--dark-card-bg);
-      --border-color: var(--dark-border);
-    }
+  /* Aplica as cores do Dark Mode quando a classe .dark está no body */
+  body.dark {
+    --primary-color: var(--dark-primary);
+    --secondary-color: var(--dark-secondary);
+    --accent-color: var(--dark-accent);
+    --text-color: var(--dark-text);
+    --text-light: var(--dark-text-light);
+    --background-color: var(--dark-bg);
+    --card-bg: var(--dark-card-bg);
+    --border-color: var(--dark-border);
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -115,8 +116,8 @@
   }
   
   .card:hover {
-    transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* A animação de translação foi movida para ser específica do carrossel para evitar o problema de clipping. */
   }
   
   .navbar {
@@ -208,6 +209,11 @@
   
   .dark .bg-light {
     background-color: var(--dark-card-bg);
+  }
+  
+  /* Faz com que o conteúdo principal ocupe o espaço disponível, empurrando o footer para baixo */
+  main {
+    flex-grow: 1;
   }
   
   .footer {
@@ -314,4 +320,94 @@
 }
 .show {
     display: block;
+}
+
+/* Garante que as labels dos formulários ficam claras em modo escuro */
+body.dark .form-label {
+  color: var(--dark-text);
+}
+
+/* Estilos para o container do carrossel */
+.carousel-container {
+  background-color: var(--light-color);
+  transition: background-color 0.3s ease;
+}
+
+body.dark .carousel-container {
+  background-color: var(--dark-card-bg);
+}
+
+/* Melhora a visibilidade dos controlos do carrossel */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1) grayscale(100) brightness(200%);
+}
+
+body.dark .carousel-control-prev-icon,
+body.dark .carousel-control-next-icon {
+    filter: none;
+}
+
+/* Estilos para os cards de destaque no carrossel */
+#featureCarousel .card-body {
+  padding: 2rem 1.5rem; /* Espaçamento interno mais equilibrado e robusto */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+}
+
+#featureCarousel .card {
+  margin-top: 2px; /* Adiciona uma margem no topo para dar espaço para a animação de hover. */
+}
+
+#featureCarousel .card:hover {
+  transform: translateY(-2px); /* Efeito de elevação ao passar o rato. */
+}
+
+#featureCarousel .card h3 {
+  font-size: 1.5rem; /* Aumenta o tamanho do título */
+  font-weight: 600;
+  margin-bottom: 0.5rem; /* Aumenta a margem inferior */
+}
+
+#featureCarousel .card p {
+  font-size: 1.1rem; /* Aumenta o tamanho do parágrafo */
+  line-height: 1.5;
+  margin-bottom: 0; /* Remove a margem inferior para melhor centralização */
+}
+
+/* Posiciona as setas do carrossel fora dos cards */
+.carousel-control-prev,
+.carousel-control-next {
+  /* Define uma altura e largura fixas para os controlos */
+  width: 3rem;
+  height: 3rem;
+  /* Posiciona o topo do botão no meio do contentor */
+  top: 50%;
+  /* Puxa o botão para cima em metade da sua própria altura para o centrar perfeitamente */
+  transform: translateY(-50%);
+}
+
+.carousel-control-prev {
+  left: -4rem; /* Ajusta a distância da seta à esquerda */
+}
+
+.carousel-control-next {
+  right: -4rem; /* Ajusta a distância da seta à direita */
+}
+
+/* Controlo de imagem com base no tema (light/dark) */
+.theme-image-light {
+  display: block; /* Mostra a imagem clara por defeito */
+}
+.theme-image-dark {
+  display: none; /* Esconde a imagem escura por defeito */
+}
+
+/* No modo escuro, esconde a imagem clara e mostra a escura */
+body.dark .theme-image-light {
+  display: none;
+}
+body.dark .theme-image-dark {
+  display: block;
 }
