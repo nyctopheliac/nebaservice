@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 $servidor = "localhost";
 $utilizador = "root";
 $senha = "";
@@ -45,7 +48,7 @@ foreach ($sql_drop_tables as $drop_query) {
 }
 
 // SQL para criar tabelas
-$sql_create_tables = [
+$sql_create_tables_array = [
     "CREATE TABLE IF NOT EXISTS `categorias` (
       `ID` int NOT NULL AUTO_INCREMENT,
       `nome` varchar(50) NOT NULL,
@@ -181,13 +184,25 @@ $sql_create_tables = [
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;"
 ];
 
-if ($conexao->multi_query($sql)) {
-    echo "Tabelas criadas com sucesso.\n";
-    while ($conexao->next_result()) {
-        // Flushing da request multi_query para evitar erros
+$sql_create_tables_string = implode(";\n", $sql_create_tables_array);
+
+if ($conexao->multi_query($sql_create_tables_string)) {
+    do {
+        if ($result = $conexao->store_result()) {
+            $result->free();
+        }
+        if ($conexao->more_results()) {
+            // More results, continue
+        }
+    } while ($conexao->next_result());
+
+    if ($conexao->errno) {
+        echo "Erro ao criar tabelas: " . $conexao->error . "\n";
+    } else {
+        echo "Tabelas criadas com sucesso.\n";
     }
 } else {
-    echo "Erro ao criar tabelas: " . $conexao->error . "\n";
+    echo "Erro ao executar multi_query para criação de tabelas: " . $conexao->error . "\n";
 }
 
 // Dados de exemplo
