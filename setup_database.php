@@ -158,7 +158,7 @@ SQL;
 if ($conexao->multi_query($sql)) {
     echo "Tabelas criadas com sucesso.\n";
     while ($conexao->next_result()) {
-        // Flushing das requests multi_query para evitar erros
+        // Flushing da request multi_query para evitar erros
     }
 } else {
     echo "Erro ao criar tabelas: " . $conexao->error . "\n";
