@@ -9,7 +9,6 @@ if (!isset($_SESSION['userID'])) {
 
 $utilizadorID = $_SESSION['userID'];
 
-// Handle cart updates
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['update_quantity'])) {
         $carrinhoID = $_POST['carrinhoID'];
@@ -27,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch cart items
 $sql = "SELECT c.ID, p.nome, p.preco, c.quantidade FROM carrinho c JOIN produtos p ON c.produtoID = p.ID WHERE c.utilizadorID = ?";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
