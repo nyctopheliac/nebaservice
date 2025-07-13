@@ -19,7 +19,6 @@ if ($conexao->query($sql_create_db) === TRUE) {
 
 $conexao->select_db($base_dados);
 
-// SQL para dropar tabelas (para garantir um estado limpo)
 $sql_drop_tables = [
     "DROP TABLE IF EXISTS `compatibilidade`;",
     "DROP TABLE IF EXISTS `configuracaoprodutos`;",
@@ -180,15 +179,6 @@ $sql_create_tables = [
       UNIQUE KEY `email` (`email`)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;"
 ];
-
-if ($conexao->multi_query($sql)) {
-    echo "Tabelas criadas com sucesso.\n";
-    while ($conexao->next_result()) {
-        // Flushing da request multi_query para evitar erros
-    }
-} else {
-    echo "Erro ao criar tabelas: " . $conexao->error . "\n";
-}
 
 // Dados de exemplo
 $consultas = [
