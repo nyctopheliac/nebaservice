@@ -22,7 +22,6 @@ if ($conexao->query($sql_create_db) === TRUE) {
 
 $conexao->select_db($base_dados);
 
-// SQL para dropar tabelas (para garantir um estado limpo)
 $sql_drop_tables = [
     "DROP TABLE IF EXISTS `compatibilidade`;",
     "DROP TABLE IF EXISTS `configuracaoprodutos`;",
@@ -184,6 +183,7 @@ $sql_create_tables_array = [
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;"
 ];
 
+<<<<<<< HEAD
 $sql_create_tables_string = implode(";\n", $sql_create_tables_array);
 
 if ($conexao->multi_query($sql_create_tables_string)) {
@@ -205,6 +205,8 @@ if ($conexao->multi_query($sql_create_tables_string)) {
     echo "Erro ao executar multi_query para criação de tabelas: " . $conexao->error . "\n";
 }
 
+=======
+>>>>>>> f454c89628c3ed5ae3415c3d0d87d76cf77b6892
 // Dados de exemplo
 $consultas = [
     // Categorias
