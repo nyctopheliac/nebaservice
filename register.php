@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'connect.php';
 
 if (isset($_SESSION['email'])) {
@@ -47,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $idUtilizador = $stmt_insert->insert_id;
                 $_SESSION['userID'] = $idUtilizador;
                 $_SESSION['email'] = $email;
+                $_SESSION['pfpURL'] = 'imagens/pfp.png'; // Definir uma imagem de perfil padrão
                 header("Location: index.php");
                 exit();
             } else {

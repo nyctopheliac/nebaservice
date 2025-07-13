@@ -1,10 +1,9 @@
 <?php
-session_start();
 include 'connect.php';
 
 // Fetch all categories
 $category_query = "SELECT * FROM categorias ORDER BY nome ASC";
-$category_result = mysqli_query($conn, $category_query);
+$category_result = mysqli_query($conexao, $category_query);
 $categories = [];
 while ($row = mysqli_fetch_assoc($category_result)) {
     $categories[] = $row;
@@ -12,7 +11,7 @@ while ($row = mysqli_fetch_assoc($category_result)) {
 
 // Fetch all products with their brands
 $product_query = "SELECT p.*, b.nome as marca_nome FROM produtos p JOIN marcas b ON p.marcaID = b.ID ORDER BY p.categoriaID, p.nome ASC";
-$product_result = mysqli_query($conn, $product_query);
+$product_result = mysqli_query($conexao, $product_query);
 $products_by_category = [];
 while ($row = mysqli_fetch_assoc($product_result)) {
     $products_by_category[$row['categoriaID']][] = $row;

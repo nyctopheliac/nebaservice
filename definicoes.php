@@ -1,5 +1,4 @@
 <?php
-session_start();
 include('connect.php');
 
 // Usar userID, é mais fiável e seguro
@@ -184,10 +183,10 @@ $pfps_disponiveis = ['imagens/pfp.png', 'imagens/pfp2.png', 'imagens/pfp3.png', 
         <?php if (!empty($successMessage)): ?>
             <div class="alert alert-success"><?php echo htmlspecialchars($successMessage); ?></div>
         <?php endif; ?>
-        <?php if (!empty($errorMessages)): ?>
+        <?php if (!empty($mensagensErro)): ?>
             <div class="alert alert-danger">
                 <ul>
-                    <?php foreach ($errorMessages as $error): ?>
+                    <?php foreach ($mensagensErro as $error): ?>
                         <li><?php echo htmlspecialchars($error); ?></li>
                     <?php endforeach; ?>
                 </ul>

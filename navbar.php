@@ -23,11 +23,12 @@
                 </li>
                 <?php if (isset($_SESSION['email'])): ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?= $_SESSION['email'] ?>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="<?= htmlspecialchars($_SESSION['pfpURL'] ?? 'imagens/pfp.png') ?>" alt="Foto de Perfil" class="rounded-circle me-2" style="width: 24px; height: 24px; object-fit: cover;">
+                            Olá, <?= htmlspecialchars($_SESSION['email']) ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="profile.php">Perfil</a></li>
+                            <li><a class="dropdown-item" href="definicoes.php">Definições de Perfil</a></li>
                             <li><a class="dropdown-item" href="encomendas.php">Encomendas</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="logout.php">Sair</a></li>

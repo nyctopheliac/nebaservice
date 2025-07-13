@@ -1,12 +1,27 @@
 <?php
-// Estabelece uma conexão com a base de dados MySQL.
-$servidor = "localhost";
-$utilizador = "root";
-$senha = "";
-$base_dados = "nebaservice";
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+// Configuração de tratamento de erros
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../logs/php_errors.log'); // Caminho para o arquivo de log de erros
 
-$conexao = mysqli_connect($servidor, $utilizador, $senha, $base_dados);
+// Configuração de cabeçalhos de segurança HTTP
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header('X-XSS-Protection: 1; mode=block');
+// HSTS (Strict-Transport-Security) - Apenas para HTTPS
+// header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+// Content-Security-Policy - Ajuste conforme necessário para evitar quebras
+header("Content-Security-Policy: default-src 'self' https://cdn.jsdelivr.net; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; img-src 'self' data:; font-src 'self' https://cdn.jsdelivr.net;");
+
+// Estabelece uma conexão com a base de dados MySQL.
+require_once 'config.php';
+
+$conexao = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME, DB_PORT);
 if (!$conexao) {
-    die("Falha na conexão: " . mysqli_connect_error());
+    error_log("Falha na conexão com a base de dados: " . mysqli_connect_error());
+    die("Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.");
 }
 ?>

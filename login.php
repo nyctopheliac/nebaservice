@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'connect.php';
 
 $mensagemErro = '';
@@ -65,8 +64,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 session_regenerate_id(true);
                 $_SESSION['email'] = $utilizador['email'];
                 $_SESSION['userID'] = $utilizador['ID'];
+                $_SESSION['pfpURL'] = $utilizador['pfpURL'] ?? 'imagens/pfp.png'; // Store pfpURL in session, with a default if not set
                 $_SESSION['tentativas_login'] = 0;
-                header("Location: index.php");
+                session_write_close(); // Explicitly save and close the session
+                header("Location: index.php?_t=" . time());
                 exit();
             } else {
                 $_SESSION['tentativas_login']++;
