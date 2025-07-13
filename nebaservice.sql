@@ -21,6 +21,9 @@ SET time_zone = "+00:00";
 -- Banco de dados: `nebaservice`
 --
 
+CREATE DATABASE IF NOT EXISTS `nebaservice`;
+USE `nebaservice`;
+
 -- --------------------------------------------------------
 
 --

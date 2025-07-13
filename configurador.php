@@ -1,69 +1,148 @@
+<?php
+session_start();
+include 'connect.php';
+
+// Fetch component types
+$component_types_query = "SELECT * FROM tipocomponente ORDER BY ID ASC";
+$component_types_result = mysqli_query($conn, $component_types_query);
+$component_types = [];
+while ($row = mysqli_fetch_assoc($component_types_result)) {
+    $component_types[] = $row;
+}
+
+// Fetch all products for the configurator
+$products_query = "SELECT p.*, b.nome as marca_nome, c.nome as categoria_nome FROM produtos p JOIN marcas b ON p.marcaID = b.ID JOIN categorias c ON p.categoriaID = c.ID";
+$products_result = mysqli_query($conn, $products_query);
+$products = [];
+while ($row = mysqli_fetch_assoc($products_result)) {
+    $products[] = $row;
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Configurador de PC</title>
 </head>
-
 <body>
 
-  <?php include 'navbar.php'; ?>
+<?php include 'navbar.php'; ?>
 
-    <div>
-        <h1>Configurador de PC</h1>
-        <form id="configuratorForm">
-            <label for="cpu">Selecione o Processador:</label>
-            <select id="cpu" name="cpu">
-                <option value="intel_i5">Intel i5</option>
-                <option value="intel_i7">Intel i7</option>
-                <option value="amd_ryzen_5">AMD Ryzen 5</option>
-                <option value="amd_ryzen_7">AMD Ryzen 7</option>
-            </select>
+<main class="container mt-5">
+    <h1 class="text-center mb-5">Configurador de PC</h1>
 
-            <label for="gpu">Selecione a Placa Gráfica:</label>
-            <select id="gpu" name="gpu">
-                <option value="nvidia_gtx_1660">NVIDIA GTX 1660</option>
-                <option value="nvidia_rtx_3060">NVIDIA RTX 3060</option>
-                <option value="amd_rx_6700">AMD RX 6700</option>
-            </select>
+    <div class="row">
+        <div class="col-md-8">
+            <form id="configuratorForm">
+                <?php foreach ($component_types as $type): ?>
+                    <div class="mb-3">
+                        <label for="<?= $type['slug'] ?>" class="form-label"><h4><?= htmlspecialchars($type['nome']) ?></h4></label>
+                        <select class="form-select product-select" id="<?= $type['slug'] ?>" name="<?= $type['slug'] ?>" data-type-id="<?= $type['ID'] ?>">
+                            <option value="" data-price="0">Selecione...</option>
+                            <?php foreach ($products as $product): ?>
+                                <?php if ($product['categoria_nome'] == $type['nome']): ?>
+                                    <option value="<?= $product['ID'] ?>" data-price="<?= $product['preco'] ?>">
+                                        <?= htmlspecialchars($product['nome']) ?> - €<?= number_format($product['preco'], 2, ',', '.') ?>
+                                    </option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                <?php endforeach; ?>
+            </form>
+        </div>
 
-            <label for="ram">Selecione a Memória RAM:</label>
-            <select id="ram" name="ram">
-                <option value="8gb">8 GB</option>
-                <option value="16gb">16 GB</option>
-                <option value="32gb">32 GB</option>
-            </select>
-
-            <input type="hidden" id="produtoID" name="produtoID" value="123"> <!-- Example product ID -->
-            <button type="button" onclick="addToCart()">Adicionar ao Carrinho</button>
-        </form>
-        <div id="addToCartResult"></div>
+        <div class="col-md-4">
+            <div class="card sticky-top">
+                <div class="card-body">
+                    <h4 class="card-title">Resumo da Configuração</h4>
+                    <ul id="summaryList" class="list-group list-group-flush"></ul>
+                    <hr>
+                    <h5 class="text-end">Total: <span id="totalPrice">€0,00</span></h5>
+                    <button type="button" id="addToCartBtn" class="btn btn-primary w-100 mt-3">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </div>
     </div>
+</main>
 
-    <?php include 'footer.php'; ?>
+<?php include 'footer.php'; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
-    <script>
-        function addToCart() {
-            var produtoID = document.getElementById('produtoID').value;
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'adicionar_carrinho.php', true);
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    document.getElementById('addToCartResult').innerHTML = xhr.responseText;
-                } else {
-                    document.getElementById('addToCartResult').innerHTML = 'Erro ao adicionar ao carrinho.';
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const productSelects = document.querySelectorAll('.product-select');
+        const summaryList = document.getElementById('summaryList');
+        const totalPriceEl = document.getElementById('totalPrice');
+        const addToCartBtn = document.getElementById('addToCartBtn');
+
+        let selectedProducts = {};
+        let totalPrice = 0;
+
+        productSelects.forEach(select => {
+            select.addEventListener('change', function() {
+                const productId = this.value;
+                const typeId = this.dataset.typeId;
+                const selectedOption = this.options[this.selectedIndex];
+                const price = parseFloat(selectedOption.dataset.price) || 0;
+                const name = selectedOption.text;
+
+                if (selectedProducts[typeId]) {
+                    totalPrice -= selectedProducts[typeId].price;
                 }
-            };
-            xhr.send('produtoID=' + produtoID);
-        }
-    </script>
 
+                if (productId) {
+                    selectedProducts[typeId] = { id: productId, name: name, price: price };
+                    totalPrice += price;
+                } else {
+                    delete selectedProducts[typeId];
+                }
+
+                updateSummary();
+                updateTotalPrice();
+            });
+        });
+
+        function updateSummary() {
+            summaryList.innerHTML = '';
+            for (const typeId in selectedProducts) {
+                const product = selectedProducts[typeId];
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                listItem.textContent = product.name;
+                summaryList.appendChild(listItem);
+            }
+        }
+
+        function updateTotalPrice() {
+            totalPriceEl.textContent = `€${totalPrice.toFixed(2).replace('.', ',')}`;
+        }
+
+        addToCartBtn.addEventListener('click', function() {
+            const productIds = Object.values(selectedProducts).map(p => p.id);
+            if (productIds.length > 0) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'adicionar_carrinho.php';
+
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'configuracao';
+                input.value = JSON.stringify(productIds);
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            } else {
+                alert('Selecione pelo menos um componente.');
+            }
+        });
+    });
+</script>
 </body>
 </html>

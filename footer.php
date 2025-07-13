@@ -1,4 +1,7 @@
-<footer class="footer">
+<?php
+// footer.php
+?>
+<footer class="footer mt-auto py-3 bg-light">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -17,7 +20,6 @@
                 <h5>Links</h5>
                 <ul class="list-unstyled">
                     <li><a href="index.php">Home</a></li>
-                <li><a href="sobre.php">Sobre Nós</a></li>
                     <li><a href="servicos.php">Serviços</a></li>
                     <li><a href="catalogo.php">Catálogo</a></li>
                 </ul>

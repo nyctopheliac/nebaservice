@@ -1,22 +1,218 @@
 <?php
-include 'connect.php';
+// setup_database.php
 
-$sql = "CREATE TABLE IF NOT EXISTS `carrinho` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `utilizadorID` int NOT NULL,
-  `produtoID` int NOT NULL,
-  `quantidade` int NOT NULL,
-  `dataAdicao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ID`),
-  KEY `utilizadorID` (`utilizadorID`),
-  KEY `produtoID` (`produtoID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+// Database connection details
+$servername = "127.0.0.1";
+$username = "root";
+$password = "";
+$dbname = "nebaservice";
+$port = 3306;
 
-if (mysqli_query($conn, $sql)) {
-  echo "Table carrinho created successfully";
-} else {
-  echo "Error creating table: " . mysqli_error($conn);
+// Create connection
+$conn = new mysqli($servername, $username, $password, '', $port);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-mysqli_close($conn);
+// Create database if it doesn't exist
+$sql = "CREATE DATABASE IF NOT EXISTS $dbname";
+if ($conn->query($sql) === TRUE) {
+    echo "Database created successfully or already exists.\n";
+} else {
+    echo "Error creating database: " . $conn->error . "\n";
+}
+
+// Select the database
+$conn->select_db($dbname);
+
+// SQL to create tables (from nebaservice.sql)
+$sql = <<<SQL
+CREATE TABLE IF NOT EXISTS `categorias` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  `fatherID` int DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `fatherID` (`fatherID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `compatibilidade` (
+  `produtoID` int NOT NULL,
+  `tipoComponenteID` int NOT NULL,
+  `compativelcom` json DEFAULT NULL,
+  PRIMARY KEY (`produtoID`,`tipoComponenteID`),
+  KEY `tipoComponenteID` (`tipoComponenteID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `configuracaopc` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `utilizadorID` int DEFAULT NULL,
+  `nomeConfiguracao` varchar(100) DEFAULT NULL,
+  `dataCriacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  KEY `utilizadorID` (`utilizadorID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `configuracaoprodutos` (
+  `configuracaoID` int NOT NULL,
+  `produtoID` int DEFAULT NULL,
+  `tipoComponenteID` int NOT NULL,
+  PRIMARY KEY (`configuracaoID`,`tipoComponenteID`),
+  KEY `produtoID` (`produtoID`),
+  KEY `tipoComponenteID` (`tipoComponenteID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `encomendaprodutos` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `encomendaID` int DEFAULT NULL,
+  `produtoID` int DEFAULT NULL,
+  `quantidade` int NOT NULL,
+  `precoUnitario` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `encomendaID` (`encomendaID`),
+  KEY `produtoID` (`produtoID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `encomendas` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `utilizadorID` int DEFAULT NULL,
+  `total` decimal(10,2) NOT NULL,
+  `estado` enum('Pendente','A processar','Enviada','Entregue','Cancelada') DEFAULT NULL,
+  `data` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  KEY `utilizadorID` (`utilizadorID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `especificacoes` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `produtoID` int DEFAULT NULL,
+  `chaves` varchar(50) NOT NULL,
+  `valor` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `produtoID` (`produtoID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `kits` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `nomeKit` varchar(100) NOT NULL,
+  `descricaoKit` text,
+  `precoKit` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `kit_componentes` (
+  `kitID` int NOT NULL,
+  `produtoID` int NOT NULL,
+  `quantidade` int DEFAULT '1',
+  PRIMARY KEY (`kitID`,`produtoID`),
+  KEY `produtoID` (`produtoID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `marcas` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `produtos` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `descricao` text,
+  `preco` decimal(10,2) NOT NULL,
+  `stock` int DEFAULT '0',
+  `categoriaID` int DEFAULT NULL,
+  `marcaID` int DEFAULT NULL,
+  `imagemPrincipal` varchar(255) DEFAULT NULL,
+  `dataCriacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  KEY `marcaID` (`marcaID`),
+  KEY `IDXProdutoNome` (`nome`),
+  KEY `IDXProdutoCategoria` (`categoriaID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `tipocomponente` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  `slug` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `utilizadores` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `nomeUtilizador` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `passwordHash` varchar(255) NOT NULL,
+  `nomeCompleto` varchar(100) DEFAULT NULL,
+  `telefone` varchar(20) DEFAULT NULL,
+  `morada` text,
+  `codigoPostal` varchar(20) DEFAULT NULL,
+  `localidade` varchar(50) DEFAULT NULL,
+  `pais` varchar(50) DEFAULT 'Portugal',
+  `nif` varchar(20) DEFAULT NULL,
+  `dataRegisto` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ultimoLogin` timestamp NULL DEFAULT NULL,
+  `ativo` tinyint(1) DEFAULT '1',
+  `tokenRecuperacao` varchar(100) DEFAULT NULL,
+  `tokenValidade` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `nomeUtilizador` (`nomeUtilizador`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+SQL;
+
+if ($conn->multi_query($sql)) {
+    echo "Tables created successfully.\n";
+    while ($conn->next_result()) {;} // flush multi_queries
+} else {
+    echo "Error creating tables: " . $conn->error . "\n";
+}
+
+// Insert sample data
+$queries = [
+    // Categorias
+    "INSERT INTO `categorias` (`nome`) VALUES ('Processadores'), ('Motherboards'), ('Memórias RAM'), ('Placas Gráficas'), ('Coolers'), ('Caixas');",
+    // Marcas
+    "INSERT INTO `marcas` (`nome`) VALUES ('Intel'), ('AMD'), ('NVIDIA'), ('ASUS'), ('Gigabyte'), ('Corsair'), ('NZXT');",
+    // TipoComponente
+    "INSERT INTO `tipocomponente` (`nome`, `slug`) VALUES ('Processador', 'cpu'), ('Motherboard', 'motherboard'), ('Memória RAM', 'ram'), ('Placa Gráfica', 'gpu'), ('Cooler', 'cooler'), ('Caixa', 'case');",
+    // Produtos
+    "INSERT INTO `produtos` (`nome`, `descricao`, `preco`, `stock`, `categoriaID`, `marcaID`, `imagemPrincipal`) VALUES
+    ('Intel Core i9-13900K', 'Processador de 24 núcleos e 32 threads, com frequência de até 5.8GHz.', 699.90, 10, 1, 1, 'i9-13900k.jpg'),
+    ('AMD Ryzen 9 7950X', 'Processador de 16 núcleos e 32 threads, com frequência de até 5.7GHz.', 749.90, 10, 1, 2, 'ryzen9-7950x.jpg'),
+    ('ASUS ROG Maximus Z790 Hero', 'Motherboard ATX com suporte para processadores Intel Core de 12ª e 13ª geração.', 649.90, 10, 2, 4, 'maximus-z790.jpg'),
+    ('Gigabyte X670 AORUS Elite AX', 'Motherboard ATX com suporte para processadores AMD Ryzen 7000 Series.', 329.90, 10, 2, 5, 'aorus-elite-ax.jpg'),
+    ('Corsair Vengeance RGB 32GB (2x16GB) DDR5 6000MHz', 'Kit de memória RAM DDR5 de 32GB com iluminação RGB.', 199.90, 10, 3, 6, 'vengeance-rgb-ddr5.jpg'),
+    ('NVIDIA GeForce RTX 4090 Founders Edition', 'Placa gráfica com 24GB de memória GDDR6X.', 1999.90, 5, 4, 3, 'rtx-4090.jpg'),
+    ('NZXT Kraken Z73 RGB', 'Water cooler de 360mm com display LCD personalizável.', 279.90, 10, 5, 7, 'kraken-z73.jpg'),
+    ('NZXT H7 Flow', 'Caixa ATX com painel frontal em malha para máximo fluxo de ar.', 129.90, 10, 6, 7, 'h7-flow.jpg');",
+    // Especificacoes
+    "INSERT INTO `especificacoes` (`produtoID`, `chaves`, `valor`) VALUES
+    (1, 'Socket', 'LGA1700'), (1, 'Núcleos', '24'), (1, 'Threads', '32'),
+    (2, 'Socket', 'AM5'), (2, 'Núcleos', '16'), (2, 'Threads', '32'),
+    (3, 'Socket', 'LGA1700'), (3, 'Formato', 'ATX'), (3, 'Chipset', 'Z790'),
+    (4, 'Socket', 'AM5'), (4, 'Formato', 'ATX'), (4, 'Chipset', 'X670'),
+    (5, 'Tipo', 'DDR5'), (5, 'Capacidade', '32GB'), (5, 'Velocidade', '6000MHz'),
+    (6, 'Memória', '24GB GDDR6X'), (6, 'Interface', 'PCI Express 4.0'),
+    (7, 'Tamanho', '360mm'), (7, 'Tipo', 'Water Cooler'),
+    (8, 'Formato', 'ATX'), (8, 'Tipo', 'Mid Tower');",
+    // Compatibilidade
+    "INSERT INTO `compatibilidade` (`produtoID`, `tipoComponenteID`, `compativelcom`) VALUES
+    (3, 1, '{\"socket\": \"LGA1700\"}'),
+    (4, 1, '{\"socket\": \"AM5\"}');"
+];
+
+foreach ($queries as $query) {
+    if ($conn->query($query) === TRUE) {
+        echo "Query executed successfully: " . substr($query, 0, 50) . "...\n";
+    } else {
+        echo "Error executing query: " . $conn->error . "\n";
+    }
+}
+
+echo "Database setup and data insertion complete.\n";
+
+$conn->close();
 ?>
