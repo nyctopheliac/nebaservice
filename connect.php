@@ -1,11 +1,12 @@
 <?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$database = "nebaservice";
+// Estabelece uma conexão com a base de dados MySQL.
+$servidor = "localhost";
+$utilizador = "root";
+$senha = "";
+$base_dados = "nebaservice";
 
-$conn = mysqli_connect($host, $user, $password, $database);
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+$conexao = mysqli_connect($servidor, $utilizador, $senha, $base_dados);
+if (!$conexao) {
+    die("Falha na conexão: " . mysqli_connect_error());
 }
 ?>

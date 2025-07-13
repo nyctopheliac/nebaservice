@@ -1,33 +1,25 @@
 <?php
-// setup_database.php
+$servidor = "localhost";
+$utilizador = "root";
+$senha = "";
+$base_dados = "nebaservice";
+$porta = 3306;
 
-// Database connection details
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "nebaservice";
-$port = 3306;
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, '', $port);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$conexao = new mysqli($servidor, $utilizador, $senha, '', $porta);
+if ($conexao->connect_error) {
+    die("Falha na conexão: " . $conexao->connect_error);
 }
 
-// Create database if it doesn't exist
-$sql = "CREATE DATABASE IF NOT EXISTS $dbname";
-if ($conn->query($sql) === TRUE) {
-    echo "Database created successfully or already exists.\n";
+$sql = "CREATE DATABASE IF NOT EXISTS `" . str_replace('`', '``', $base_dados) . "`";
+if ($conexao->query($sql) === TRUE) {
+    echo "Base de dados criada com sucesso ou já existe.\n";
 } else {
-    echo "Error creating database: " . $conn->error . "\n";
+    echo "Erro ao criar base de dados: " . $conexao->error . "\n";
 }
 
-// Select the database
-$conn->select_db($dbname);
+$conexao->select_db($base_dados);
 
-// SQL to create tables (from nebaservice.sql)
+// SQL para criar tabelas
 $sql = <<<SQL
 CREATE TABLE IF NOT EXISTS `categorias` (
   `ID` int NOT NULL AUTO_INCREMENT,
@@ -163,15 +155,17 @@ CREATE TABLE IF NOT EXISTS `utilizadores` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 SQL;
 
-if ($conn->multi_query($sql)) {
-    echo "Tables created successfully.\n";
-    while ($conn->next_result()) {;} // flush multi_queries
+if ($conexao->multi_query($sql)) {
+    echo "Tabelas criadas com sucesso.\n";
+    while ($conexao->next_result()) {
+        // Flushing das requests multi_query para evitar erros
+    }
 } else {
-    echo "Error creating tables: " . $conn->error . "\n";
+    echo "Erro ao criar tabelas: " . $conexao->error . "\n";
 }
 
-// Insert sample data
-$queries = [
+// Dados de exemplo
+$consultas = [
     // Categorias
     "INSERT INTO `categorias` (`nome`) VALUES ('Processadores'), ('Motherboards'), ('Memórias RAM'), ('Placas Gráficas'), ('Coolers'), ('Caixas');",
     // Marcas
@@ -204,15 +198,15 @@ $queries = [
     (4, 1, '{\"socket\": \"AM5\"}');"
 ];
 
-foreach ($queries as $query) {
-    if ($conn->query($query) === TRUE) {
-        echo "Query executed successfully: " . substr($query, 0, 50) . "...\n";
+foreach ($consultas as $consulta) {
+    if ($conexao->query($consulta) === TRUE) {
+        echo "Consulta executada com sucesso: " . substr($consulta, 0, 50) . "...\n";
     } else {
-        echo "Error executing query: " . $conn->error . "\n";
+        echo "Erro ao executar consulta: " . $conexao->error . "\n";
     }
 }
 
-echo "Database setup and data insertion complete.\n";
+echo "Configuração da base de dados e inserção de dados concluída.\n";
 
-$conn->close();
+$conexao->close();
 ?>

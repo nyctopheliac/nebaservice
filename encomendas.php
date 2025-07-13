@@ -9,7 +9,7 @@ if (!isset($_SESSION['userID'])) {
 
 $utilizadorID = $_SESSION['userID'];
 
-// Fetch orders
+// Ir buscar as encomendas do utilizador
 $sql = "SELECT * FROM encomendas WHERE utilizadorID = ? ORDER BY data DESC";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
@@ -17,13 +17,20 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $encomendas = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-// Fetch all products for the orders in a single query
-$order_ids = array_column($encomendas, 'ID');
+// Sacar os produtos de cada encomenda
 $order_products = [];
+$order_ids = array_column($encomendas, 'ID');
 if (!empty($order_ids)) {
-    $order_ids_str = implode(',', $order_ids);
-    $sql = "SELECT ep.encomendaID, p.nome, ep.quantidade, ep.precoUnitario FROM encomendaprodutos ep JOIN produtos p ON ep.produtoID = p.ID WHERE ep.encomendaID IN ($order_ids_str)";
-    $result = mysqli_query($conn, $sql);
+    // Criar placeholders para a consulta
+    $placeholders = implode(',', array_fill(0, count($order_ids), '?'));
+    $sql = "SELECT ep.encomendaID, p.nome, ep.quantidade, ep.precoUnitario FROM encomendaprodutos ep JOIN produtos p ON ep.produtoID = p.ID WHERE ep.encomendaID IN ($placeholders)";
+    $stmt = mysqli_prepare($conn, $sql);
+
+    // Colar os parâmetros uns aos outros
+    $types = str_repeat('i', count($order_ids));
+    mysqli_stmt_bind_param($stmt, $types, ...$order_ids);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
         $order_products[$row['encomendaID']][] = $row;
     }

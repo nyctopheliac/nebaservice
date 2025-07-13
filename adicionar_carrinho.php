@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $product_ids = json_decode($_POST['configuracao'], true);
         if (is_array($product_ids)) {
             foreach ($product_ids as $product_id) {
-                // Add each product from the configuration to the cart
+                // Adicionar cada produto da configuração ao carrinho
                 if (!isset($_SESSION['carrinho'][$product_id])) {
                     $_SESSION['carrinho'][$product_id] = 1;
                 } else {
@@ -18,14 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
         }
-    } elseif (isset($_GET['id'])) {
-        $product_id = $_GET['id'];
-        // Add a single product to the cart
-        if (!isset($_SESSION['carrinho'][$product_id])) {
-            $_SESSION['carrinho'][$product_id] = 1;
-        } else {
-            $_SESSION['carrinho'][$product_id]++;
-        }
+    }
+}
+
+if (isset($_GET['id'])) {
+    $product_id = $_GET['id'];
+    // Adicionar um único produto ao carrinho
+    if (!isset($_SESSION['carrinho'][$product_id])) {
+        $_SESSION['carrinho'][$product_id] = 1;
+    } else {
+        $_SESSION['carrinho'][$product_id]++;
     }
 }
 

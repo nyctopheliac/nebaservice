@@ -32,7 +32,7 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   
-  /* Aplica as cores do Dark Mode quando a classe .dark está no body */
+  /* Aplica as cores do Modo Escuro quando a classe .dark está no body */
   body.dark {
     --primary-color: var(--dark-primary);
     --secondary-color: var(--dark-secondary);
@@ -170,7 +170,7 @@
     padding: 0.375rem 1rem;
   }
   
-  /* Login button specific styles */
+  /* Estilos específicos do botão de Login */
   .nav-btn .btn {
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
@@ -254,7 +254,7 @@
     stroke-linejoin: round;
   }
   
-  /* Compabilidade com dispositivos móveis */
+  /* Compatibilidade com dispositivos móveis */
   @media (max-width: 991.98px) {
     .navbar-collapse {
       padding-top: 1rem;

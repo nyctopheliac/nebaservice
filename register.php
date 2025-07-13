@@ -7,50 +7,50 @@ if (isset($_SESSION['email'])) {
     exit();
 }
 
-$errorMessages = [];
+$mensagensErro = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = trim($_POST['username']);
+    $nomeUtilizador = trim($_POST['username']);
     $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-    $confirmPassword = trim($_POST['confirmPassword']);
+    $senha = trim($_POST['password']);
+    $confirmarSenha = trim($_POST['confirmPassword']);
 
-    if (empty($username) || empty($email) || empty($password)) {
-        $errorMessages[] = "Precisa de preencher todos os campos obrigatórios.";
+    if (empty($nomeUtilizador) || empty($email) || empty($senha)) {
+        $mensagensErro[] = "Precisa de preencher todos os campos obrigatórios.";
     }
-    if (strlen($password) < 8) {
-        $errorMessages[] = "A palavra-passe deve ter pelo menos 8 caracteres.";
+    if (strlen($senha) < 8) {
+        $mensagensErro[] = "A palavra-passe deve ter pelo menos 8 caracteres.";
     }
-    if ($password !== $confirmPassword) {
-        $errorMessages[] = "As palavras-passe não coincidem.";
+    if ($senha !== $confirmarSenha) {
+        $mensagensErro[] = "As palavras-passe não coincidem.";
     }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errorMessages[] = "O formato do email é inválido.";
+        $mensagensErro[] = "O formato do email é inválido.";
     }
-    if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
-        $errorMessages[] = "O nome de utilizador só pode conter letras, números e underscores.";
+    if (!preg_match('/^[a-zA-Z0-9_]+$/', $nomeUtilizador)) {
+        $mensagensErro[] = "O nome de utilizador só pode conter letras, números e underscores.";
     }
 
-    if (empty($errorMessages)) {
-        $stmt_check = $conn->prepare("SELECT ID FROM utilizadores WHERE nomeUtilizador = ? OR email = ?");
-        $stmt_check->bind_param("ss", $username, $email);
+    if (empty($mensagensErro)) {
+        $stmt_check = $conexao->prepare("SELECT ID FROM utilizadores WHERE nomeUtilizador = ? OR email = ?");
+        $stmt_check->bind_param("ss", $nomeUtilizador, $email);
         $stmt_check->execute();
         if ($stmt_check->get_result()->num_rows > 0) {
-            $errorMessages[] = "O nome de utilizador ou o email já se encontram registados.";
+            $mensagensErro[] = "O nome de utilizador ou o email já se encontram registados.";
         } else {
-            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-            $stmt_insert = $conn->prepare("INSERT INTO utilizadores (nomeUtilizador, email, passwordHash) VALUES (?, ?, ?)");
-            $stmt_insert->bind_param("sss", $username, $email, $hashedPassword);
+            $hashedPassword = password_hash($senha, PASSWORD_BCRYPT);
+            $stmt_insert = $conexao->prepare("INSERT INTO utilizadores (nomeUtilizador, email, passwordHash) VALUES (?, ?, ?)");
+            $stmt_insert->bind_param("sss", $nomeUtilizador, $email, $hashedPassword);
             
             if ($stmt_insert->execute()) {
                 session_regenerate_id(true);
-                $userID = $stmt_insert->insert_id;
-                $_SESSION['userID'] = $userID;
+                $idUtilizador = $stmt_insert->insert_id;
+                $_SESSION['userID'] = $idUtilizador;
                 $_SESSION['email'] = $email;
                 header("Location: index.php");
                 exit();
             } else {
-                $errorMessages[] = "Falha ao criar o utilizador. Tente novamente.";
+                $mensagensErro[] = "Falha ao criar o utilizador. Tente novamente.";
             }
         }
     }

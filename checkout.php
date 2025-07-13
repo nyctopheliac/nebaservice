@@ -14,7 +14,7 @@ if (empty($_SESSION['carrinho'])) {
 
 $utilizadorID = $_SESSION['userID'];
 
-// Fetch user data
+// Ir buscar os dados do utilizador
 $sql = "SELECT * FROM utilizadores WHERE ID = ?";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
@@ -22,14 +22,21 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $user = mysqli_fetch_assoc($result);
 
-// Fetch cart items from session
+// Ir buscar os produtos do carrinho ao iniciar sessão
 $cart_products = [];
 $total_price = 0;
 $product_ids = array_keys($_SESSION['carrinho']);
-$product_ids_str = implode(',', $product_ids);
+$placeholders = implode(',', array_fill(0, count($product_ids), '?'));
 
-$query = "SELECT * FROM produtos WHERE ID IN ($product_ids_str)";
-$result = mysqli_query($conn, $query);
+$query = "SELECT * FROM produtos WHERE ID IN ($placeholders)";
+$stmt = mysqli_prepare($conn, $query);
+
+// Colar os parâmetros
+$types = str_repeat('i', count($product_ids));
+mysqli_stmt_bind_param($stmt, $types, ...$product_ids);
+
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
 while ($row = mysqli_fetch_assoc($result)) {
     $row['quantidade'] = $_SESSION['carrinho'][$row['ID']];
@@ -38,14 +45,14 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Create order
+    // Criar a encomenda
     $sql = "INSERT INTO encomendas (utilizadorID, total, estado) VALUES (?, ?, 'Pendente')";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "id", $utilizadorID, $total_price);
     mysqli_stmt_execute($stmt);
     $encomendaID = mysqli_insert_id($conn);
 
-    // Move cart items to order items
+    // Mover produtos do carrinho para a tabela de encomenda
     foreach ($cart_products as $item) {
         $sql = "INSERT INTO encomendaprodutos (encomendaID, produtoID, quantidade, precoUnitario) VALUES (?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $sql);
@@ -53,9 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_stmt_execute($stmt);
     }
 
-    // Clear shopping cart
+    // Limpar o carrinho e fechar a sessão
     unset($_SESSION['carrinho']);
-
     header('Location: obrigado.php');
     exit();
 }
