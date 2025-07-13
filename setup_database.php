@@ -181,12 +181,13 @@ $sql_create_tables = [
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;"
 ];
 
-foreach ($sql_create_tables as $create_query) {
-    if ($conexao->query($create_query) === TRUE) {
-        echo "Tabela criada com sucesso: " . substr($create_query, 0, 30) . "...\n";
-    } else {
-        echo "Erro ao criar tabela: " . $conexao->error . "\n";
+if ($conexao->multi_query($sql)) {
+    echo "Tabelas criadas com sucesso.\n";
+    while ($conexao->next_result()) {
+        // Flushing da request multi_query para evitar erros
     }
+} else {
+    echo "Erro ao criar tabelas: " . $conexao->error . "\n";
 }
 
 // Dados de exemplo
