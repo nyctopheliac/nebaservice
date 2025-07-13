@@ -11,7 +11,7 @@ $utilizadorID = $_SESSION['userID'];
 
 // Ir buscar as encomendas do utilizador
 $sql = "SELECT * FROM encomendas WHERE utilizadorID = ? ORDER BY data DESC";
-$stmt = mysqli_prepare($conn, $sql);
+$stmt = mysqli_prepare($conexao, $sql);
 mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
@@ -24,7 +24,7 @@ if (!empty($order_ids)) {
     // Criar placeholders para a consulta
     $placeholders = implode(',', array_fill(0, count($order_ids), '?'));
     $sql = "SELECT ep.encomendaID, p.nome, ep.quantidade, ep.precoUnitario FROM encomendaprodutos ep JOIN produtos p ON ep.produtoID = p.ID WHERE ep.encomendaID IN ($placeholders)";
-    $stmt = mysqli_prepare($conn, $sql);
+    $stmt = mysqli_prepare($conexao, $sql);
 
     // Colar os parâmetros uns aos outros
     $types = str_repeat('i', count($order_ids));

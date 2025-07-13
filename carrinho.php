@@ -11,7 +11,7 @@ if (!empty($_SESSION['carrinho'])) {
     $product_ids = array_map('intval', $product_ids);
     $product_ids_str = implode(',', $product_ids);
     $query = "SELECT * FROM produtos WHERE ID IN ($product_ids_str)";
-    $result = mysqli_query($conn, $query);
+    $result = mysqli_query($conexao, $query);
     while ($row = mysqli_fetch_assoc($result)) {
         $row['quantidade'] = $_SESSION['carrinho'][$row['ID']];
         $cart_products[] = $row;

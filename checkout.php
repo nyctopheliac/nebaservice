@@ -16,7 +16,7 @@ $utilizadorID = $_SESSION['userID'];
 
 // Ir buscar os dados do utilizador
 $sql = "SELECT * FROM utilizadores WHERE ID = ?";
-$stmt = mysqli_prepare($conn, $sql);
+$stmt = mysqli_prepare($conexao, $sql);
 mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
@@ -47,15 +47,15 @@ while ($row = mysqli_fetch_assoc($result)) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Criar a encomenda
     $sql = "INSERT INTO encomendas (utilizadorID, total, estado) VALUES (?, ?, 'Pendente')";
-    $stmt = mysqli_prepare($conn, $sql);
+    $stmt = mysqli_prepare($conexao, $sql);
     mysqli_stmt_bind_param($stmt, "id", $utilizadorID, $total_price);
     mysqli_stmt_execute($stmt);
-    $encomendaID = mysqli_insert_id($conn);
+    $encomendaID = mysqli_insert_id($conexao);
 
     // Mover produtos do carrinho para a tabela de encomenda
     foreach ($cart_products as $item) {
         $sql = "INSERT INTO encomendaprodutos (encomendaID, produtoID, quantidade, precoUnitario) VALUES (?, ?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $sql);
+        $stmt = mysqli_prepare($conexao, $sql);
         mysqli_stmt_bind_param($stmt, "iiid", $encomendaID, $item['ID'], $item['quantidade'], $item['preco']);
         mysqli_stmt_execute($stmt);
     }
