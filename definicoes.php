@@ -1,8 +1,5 @@
 <?php
-<<<<<<< Updated upstream
 session_start();
-=======
->>>>>>> Stashed changes
 include('connect.php');
 
 // Usar userID, é mais fiável e seguro
@@ -17,11 +14,7 @@ $mensagensErro = []; // Usar um array para múltiplas mensagens de erro.
 
 // Obtém os detalhes atuais do utilizador ANTES de processar o formulário.
 // Isto garante que a variável $utilizador está disponível para comparações.
-<<<<<<< Updated upstream
 $stmt_fetch = $conn->prepare("SELECT nomeCompleto, morada, codigoPostal, localidade, pfpURL, telefone, nif FROM utilizadores WHERE ID = ?");
-=======
-$stmt_fetch = $conexao->prepare("SELECT nomeCompleto, morada, codigoPostal, localidade, pfpURL, telefone, nif FROM utilizadores WHERE ID = ?");
->>>>>>> Stashed changes
 $stmt_fetch->bind_param("i", $userID);
 $stmt_fetch->execute();
 $resultado = $stmt_fetch->get_result();
@@ -121,11 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
         $parametros[] = $userID;
         $tipos .= "i";
 
-<<<<<<< Updated upstream
         $stmt = $conn->prepare($sql);
-=======
-        $stmt = $conexao->prepare($sql);
->>>>>>> Stashed changes
         $stmt->bind_param($tipos, ...$parametros);
 
         if ($stmt->execute()) {
@@ -139,11 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
     }
 
     // Após a atualização, obtém novamente os dados do utilizador para exibir os valores mais recentes no formulário.
-<<<<<<< Updated upstream
     $stmt_fetch_refresh = $conn->prepare("SELECT nomeCompleto, morada, codigoPostal, localidade, pfpURL, telefone, nif FROM utilizadores WHERE ID = ?");
-=======
-    $stmt_fetch_refresh = $conexao->prepare("SELECT nomeCompleto, morada, codigoPostal, localidade, pfpURL, telefone, nif FROM utilizadores WHERE ID = ?");
->>>>>>> Stashed changes
     $stmt_fetch_refresh->bind_param("i", $userID);
     $stmt_fetch_refresh->execute();
     $utilizador = $stmt_fetch_refresh->get_result()->fetch_assoc();
