@@ -183,7 +183,6 @@ $sql_create_tables_array = [
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;"
 ];
 
-<<<<<<< HEAD
 $sql_create_tables_string = implode(";\n", $sql_create_tables_array);
 
 if ($conexao->multi_query($sql_create_tables_string)) {
@@ -192,7 +191,6 @@ if ($conexao->multi_query($sql_create_tables_string)) {
             $result->free();
         }
         if ($conexao->more_results()) {
-            // More results, continue
         }
     } while ($conexao->next_result());
 
@@ -205,17 +203,14 @@ if ($conexao->multi_query($sql_create_tables_string)) {
     echo "Erro ao executar multi_query para criação de tabelas: " . $conexao->error . "\n";
 }
 
-=======
->>>>>>> f454c89628c3ed5ae3415c3d0d87d76cf77b6892
 // Dados de exemplo
 $consultas = [
-    // Categorias
     "INSERT INTO `categorias` (`nome`) VALUES ('Processadores'), ('Motherboards'), ('Memórias RAM'), ('Placas Gráficas'), ('Coolers'), ('Caixas');",
-    // Marcas
+    
     "INSERT INTO `marcas` (`nome`) VALUES ('Intel'), ('AMD'), ('NVIDIA'), ('ASUS'), ('Gigabyte'), ('Corsair'), ('NZXT');",
-    // TipoComponente
+    
     "INSERT INTO `tipocomponente` (`nome`, `slug`) VALUES ('Processador', 'cpu'), ('Motherboard', 'motherboard'), ('Memória RAM', 'ram'), ('Placa Gráfica', 'gpu'), ('Cooler', 'cooler'), ('Caixa', 'case');",
-    // Produtos
+    
     "INSERT INTO `produtos` (`nome`, `descricao`, `preco`, `stock`, `categoriaID`, `marcaID`, `imagemPrincipal`) VALUES
     ('Intel Core i9-13900K', 'Processador de 24 núcleos e 32 threads, com frequência de até 5.8GHz.', 699.90, 10, 1, 1, 'i9-13900k.jpg'),
     ('AMD Ryzen 9 7950X', 'Processador de 16 núcleos e 32 threads, com frequência de até 5.7GHz.', 749.90, 10, 1, 2, 'ryzen9-7950x.jpg'),
@@ -225,7 +220,7 @@ $consultas = [
     ('NVIDIA GeForce RTX 4090 Founders Edition', 'Placa gráfica com 24GB de memória GDDR6X.', 1999.90, 5, 4, 3, 'rtx-4090.jpg'),
     ('NZXT Kraken Z73 RGB', 'Water cooler de 360mm com display LCD personalizável.', 279.90, 10, 5, 7, 'kraken-z73.jpg'),
     ('NZXT H7 Flow', 'Caixa ATX com painel frontal em malha para máximo fluxo de ar.', 129.90, 10, 6, 7, 'h7-flow.jpg');",
-    // Especificacoes
+    
     "INSERT INTO `especificacoes` (`produtoID`, `chaves`, `valor`) VALUES
     (1, 'Socket', 'LGA1700'), (1, 'Núcleos', '24'), (1, 'Threads', '32'),
     (2, 'Socket', 'AM5'), (2, 'Núcleos', '16'), (2, 'Threads', '32'),
@@ -235,7 +230,7 @@ $consultas = [
     (6, 'Memória', '24GB GDDR6X'), (6, 'Interface', 'PCI Express 4.0'),
     (7, 'Tamanho', '360mm'), (7, 'Tipo', 'Water Cooler'),
     (8, 'Formato', 'ATX'), (8, 'Tipo', 'Mid Tower');",
-    // Compatibilidade
+    
     "INSERT INTO `compatibilidade` (`produtoID`, `tipoComponenteID`, `compativelcom`) VALUES
     (3, 1, '{\"socket\": \"LGA1700\"}'),
     (4, 1, '{\"socket\": \"AM5\"}');"
