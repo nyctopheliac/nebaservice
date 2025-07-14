@@ -10,7 +10,7 @@
 
 <body>
 
-  <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+  <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Alternar modo escuro">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5"></circle>
       <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
@@ -27,16 +27,16 @@
               <ul class="navbar-nav">
                   <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
                   <li class="nav-item"><a class="nav-link" href="catalogo.php">Catalogo</a></li>
-                  <li class="nav-item"><a class="nav-link" href="servicos.php">Serviços</a></li>
+                  
                   <li class="nav-item ms-lg-3">
                       <a href="login.php" class="btn btn-outline">Login</a>
                   </li>
                   <li class="nav-item profile-icon">
                       <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
                       <div class="profile-dropdown" id="profileDropdown">
-                          <a href="profile.php">Profile Settings</a>
-                          <a href="delivery.php">Check Deliveries</a>
-                          <a href="logout.php">Logout</a>
+                          <a href="profile.php">Definições de Perfil</a>
+                          <a href="encomendas.php">Ver Encomendas</a>
+                          <a href="logout.php">Sair</a>
                       </div>
                   </li>
               </ul>
@@ -72,7 +72,7 @@
                     <h5>Links</h5>
                     <ul class="list-unstyled">
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="servicos.php">Serviços</a></li>
+                        
                         <li><a href="catalogo.php">Catalogo</a></li>
                     </ul>
                 </div>

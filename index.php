@@ -1,3 +1,7 @@
+<?php
+include 'connect.php';
+
+?>
 <!DOCTYPE html>
 <html lang="pt-PT ">
 <head>
@@ -9,7 +13,7 @@
 </head>
 <body>
 
-  <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+  <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Alternar modo escuro">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5"></circle>
       <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
@@ -25,13 +29,14 @@
         <img src="imagens/computador.png" class="mx-lg-auto img-fluid theme-image-dark" alt="NebaService Illustration" width="400" height="500" loading="lazy">
       </div>
       <div class="col-lg-6">
-        <h1 class="display-5 fw-bold mb-3">Serviços Profissionais para o seu Negócio</h1>
+        
+        <h1>Serviços Profissionais para o seu Negócio</h1>
         <p class="lead">A NebaService oferece soluções de alta qualidade, adaptadas às suas necessidades. A nossa equipa de especialistas está pronta para o ajudar a expandir o seu negócio de forma eficiente.</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <a href="ajuda.php">
+          <a href="catalogo.php">
             <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Saiba Mais</button>
           </a>
-          <a href="login.php">
+          <a href="configurador.php">
             <button type="button" class="btn btn-outline btn-lg px-4">Começar</button>
           </a>
         </div>

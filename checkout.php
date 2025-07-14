@@ -1,64 +1,99 @@
 <?php
-session_start();
 include 'connect.php';
 
-if (!isset($_SESSION['userID'])) {
+if (!isset($_SESSION['email'])) {
     header('Location: login.php');
+    exit();
+}
+
+if (empty($_SESSION['carrinho'])) {
+    header('Location: carrinho.php');
     exit();
 }
 
 $utilizadorID = $_SESSION['userID'];
 
-// Fetch user data
+// Ir buscar os dados do utilizador
 $sql = "SELECT * FROM utilizadores WHERE ID = ?";
-$stmt = mysqli_prepare($conn, $sql);
+$stmt = mysqli_prepare($conexao, $sql);
 mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $user = mysqli_fetch_assoc($result);
 
-// Fetch cart items
-$sql = "SELECT c.ID, p.nome, p.preco, c.quantidade FROM carrinho c JOIN produtos p ON c.produtoID = p.ID WHERE c.utilizadorID = ?";
-$stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
+// Ir buscar os produtos do carrinho ao iniciar sessão
+$cart_products = [];
+$total_price = 0;
+$product_ids = array_keys($_SESSION['carrinho']);
+$placeholders = implode(',', array_fill(0, count($product_ids), '?'));
+
+$query = "SELECT * FROM produtos WHERE ID IN ($placeholders)";
+$stmt = mysqli_prepare($conexao, $query);
+
+// Colar os parâmetros
+$types = str_repeat('i', count($product_ids));
+mysqli_stmt_bind_param($stmt, $types, ...$product_ids);
+
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
-$cartItems = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-if (empty($cartItems)) {
-    header('Location: carrinho.php');
-    exit();
-}
-
-$total = 0;
-foreach ($cartItems as $item) {
-    $total += $item['preco'] * $item['quantidade'];
+while ($row = mysqli_fetch_assoc($result)) {
+    $row['quantidade'] = $_SESSION['carrinho'][$row['ID']];
+    $cart_products[] = $row;
+    $total_price += $row['preco'] * $row['quantidade'];
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Create order
-    $sql = "INSERT INTO encomendas (utilizadorID, total, estado) VALUES (?, ?, 'Pendente')";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "id", $utilizadorID, $total);
-    mysqli_stmt_execute($stmt);
-    $encomendaID = mysqli_insert_id($conn);
+    mysqli_begin_transaction($conexao);
+    try {
+        // Verificar stock antes de criar a encomenda
+        foreach ($cart_products as $item) {
+            $sql_check_stock = "SELECT stock FROM produtos WHERE ID = ? FOR UPDATE"; // FOR UPDATE para bloquear a linha
+            $stmt_check_stock = mysqli_prepare($conexao, $sql_check_stock);
+            mysqli_stmt_bind_param($stmt_check_stock, "i", $item['ID']);
+            mysqli_stmt_execute($stmt_check_stock);
+            $result_stock = mysqli_stmt_get_result($stmt_check_stock);
+            $product_stock = mysqli_fetch_assoc($result_stock);
 
-    // Move cart items to order items
-    foreach ($cartItems as $item) {
-        $sql = "INSERT INTO encomendaprodutos (encomendaID, produtoID, quantidade, precoUnitario) VALUES (?, ?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "iiid", $encomendaID, $item['ID'], $item['quantidade'], $item['preco']);
-        mysqli_stmt_execute($stmt);
+            if (!$product_stock || $product_stock['stock'] < $item['quantidade']) {
+                throw new mysqli_sql_exception("Stock insuficiente para o produto: " . htmlspecialchars($item['nome']));
+            }
+        }
+
+        // Criar a encomenda
+        $sql_insert_order = "INSERT INTO encomendas (utilizadorID, total, estado) VALUES (?, ?, 'Pendente')";
+        $stmt_insert_order = mysqli_prepare($conexao, $sql_insert_order);
+        mysqli_stmt_bind_param($stmt_insert_order, "id", $utilizadorID, $total_price);
+        mysqli_stmt_execute($stmt_insert_order);
+        $encomendaID = mysqli_insert_id($conexao);
+
+        // Mover produtos do carrinho para a tabela de encomenda e decrementar stock
+        foreach ($cart_products as $item) {
+            $sql_insert_order_product = "INSERT INTO encomendaprodutos (encomendaID, produtoID, quantidade, precoUnitario) VALUES (?, ?, ?, ?)";
+            $stmt_insert_order_product = mysqli_prepare($conexao, $sql_insert_order_product);
+            mysqli_stmt_bind_param($stmt_insert_order_product, "iiid", $encomendaID, $item['ID'], $item['quantidade'], $item['preco']);
+            mysqli_stmt_execute($stmt_insert_order_product);
+
+            $sql_update_stock = "UPDATE produtos SET stock = stock - ? WHERE ID = ?";
+            $stmt_update_stock = mysqli_prepare($conexao, $sql_update_stock);
+            mysqli_stmt_bind_param($stmt_update_stock, "ii", $item['quantidade'], $item['ID']);
+            mysqli_stmt_execute($stmt_update_stock);
+        }
+
+        mysqli_commit($conexao);
+        // Limpar o carrinho e guardar o ID da encomenda na sessão
+        unset($_SESSION['carrinho']);
+        $_SESSION['last_order_id'] = $encomendaID;
+        header('Location: obrigado.php?order_id=' . $encomendaID);
+        exit();
+    } catch (mysqli_sql_exception $exception) {
+        mysqli_rollback($conexao);
+        // Log the error for debugging
+        error_log("Erro na transação de checkout: " . $exception->getMessage());
+        // Redirect to an error page or show a user-friendly message
+        header('Location: erro.php'); // You might want to create an erro.php page
+        exit();
     }
-
-    // Clear shopping cart
-    $sql = "DELETE FROM carrinho WHERE utilizadorID = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
-    mysqli_stmt_execute($stmt);
-
-    header('Location: obrigado.php');
-    exit();
 }
 
 ?>
@@ -74,49 +109,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-    <?php include 'navbar.php'; ?>
+<?php include 'navbar.php'; ?>
 
-    <div class="container">
-        <h1>Checkout</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <h2>Endereço de Envio</h2>
-                <p><?php echo htmlspecialchars($user['nomeCompleto']); ?></p>
-                <p><?php echo htmlspecialchars($user['morada']); ?></p>
-                <p><?php echo htmlspecialchars($user['codigoPostal']); ?> <?php echo htmlspecialchars($user['localidade']); ?></p>
-                <p><?php echo htmlspecialchars($user['pais']); ?></p>
-            </div>
-            <div class="col-md-6">
-                <h2>Resumo do Pedido</h2>
-                <table class="table">
-                    <thead>
+<main class="container mt-5">
+    <h1 class="text-center mb-5">Checkout</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Endereço de Envio</h2>
+            <p><?= htmlspecialchars($user['nomeCompleto']) ?></p>
+            <p><?= htmlspecialchars($user['morada']) ?></p>
+            <p><?= htmlspecialchars($user['codigoPostal']) ?> <?= htmlspecialchars($user['localidade']) ?></p>
+            <p><?= htmlspecialchars($user['pais']) ?></p>
+        </div>
+        <div class="col-md-6">
+            <h2>Resumo do Pedido</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($cart_products as $item): ?>
                         <tr>
-                            <th>Produto</th>
-                            <th>Total</th>
+                            <td><?= htmlspecialchars($item['nome']) ?> x <?= $item['quantidade'] ?></td>
+                            <td>€<?= number_format($item['preco'] * $item['quantidade'], 2, ',', '.') ?></td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($cartItems as $item): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($item['nome']); ?> x <?php echo $item['quantidade']; ?></td>
-                                <td><?php echo $item['preco'] * $item['quantidade']; ?>€</td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <p><strong>Total: <?php echo $total; ?>€</strong></p>
-                <form action="checkout.php" method="post">
-                    <h2>Pagamento</h2>
-                    <p>Simulação de pagamento. Clique em "Finalizar Encomenda" para completar.</p>
-                    <button type="submit" class="btn btn-primary">Finalizar Encomenda</button>
-                </form>
-            </div>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <p><strong>Total: €<?= number_format($total_price, 2, ',', '.') ?></strong></p>
+            <form action="checkout.php" method="post">
+                <h2>Pagamento</h2>
+                <p>Simulação de pagamento. Clique em "Finalizar Encomenda" para completar.</p>
+                <button type="submit" class="btn btn-primary">Finalizar Encomenda</button>
+            </form>
         </div>
     </div>
+</main>
 
-    <?php include 'footer.php'; ?>
+<?php include 'footer.php'; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
