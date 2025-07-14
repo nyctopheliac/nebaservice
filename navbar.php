@@ -1,5 +1,8 @@
 <?php
+<<<<<<< Updated upstream
 session_start();
+=======
+>>>>>>> Stashed changes
 // barra_de_navegacao.php
 ?>
 <nav class="navbar navbar-expand-lg">

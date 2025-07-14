@@ -1,5 +1,8 @@
 <?php
+<<<<<<< Updated upstream
 session_start();
+=======
+>>>>>>> Stashed changes
 include 'connect.php';
 
 ?>

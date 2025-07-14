@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 Sobre nós -
     Página simples, explica que somos um website de venda de componentes para computadores, 
     de motherboards a periféricos, server racks a conectores rj45, cabos AC a cabos USB.
@@ -7,4 +8,15 @@ Coisas a fazer a curto prazo -
     Definir o layout das páginas    
     !Fazer o backend aka base de dados + tabelas + conexões ao website
     !!Fazer com que seja exportável para o byethost (+ pontos na pap de graça)
+=======
+Sobre nós -
+    Página simples, explica que somos um website de venda de componentes para computadores, 
+    de motherboards a periféricos, server racks a conectores rj45, cabos AC a cabos USB.
+
+Coisas a fazer a curto prazo -
+    Apresentar o plano aos rapazes
+    Definir o layout das páginas    
+    !Fazer o backend aka base de dados + tabelas + conexões ao website
+    !!Fazer com que seja exportável para o byethost (+ pontos na pap de graça)
+>>>>>>> Stashed changes
     

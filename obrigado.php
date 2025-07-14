@@ -1,5 +1,10 @@
 
 
+<<<<<<< Updated upstream
+=======
+<?php include 'connect.php'; ?>
+
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>

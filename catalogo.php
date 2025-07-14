@@ -31,18 +31,28 @@ if (!empty($search_term)) {
 
 // Construir a cláusula WHERE para a pesquisa
 $where_clause = '';
+<<<<<<< Updated upstream
 $search_params = [];
 if (!empty($search_term)) {
     $where_clause = " WHERE p.nome LIKE ? OR b.nome LIKE ?";
     $search_param = "%{$search_term}%";
     $search_params = [$search_param, $search_param];
+=======
+if (!empty($search_term)) {
+    $escaped_search_term = mysqli_real_escape_string($conexao, $search_term);
+    $where_clause = " WHERE p.nome LIKE '%$escaped_search_term%' OR b.nome LIKE '%$escaped_search_term%'";
+>>>>>>> Stashed changes
 }
 
 // --- Fim da Lógica ---
 
 // Fetch all categories
 $category_query = "SELECT * FROM categorias ORDER BY nome ASC";
+<<<<<<< Updated upstream
 $category_result = mysqli_query($conn, $category_query);
+=======
+$category_result = mysqli_query($conexao, $category_query);
+>>>>>>> Stashed changes
 $categories = [];
 while ($row = mysqli_fetch_assoc($category_result)) {
     $categories[] = $row;
@@ -50,6 +60,7 @@ while ($row = mysqli_fetch_assoc($category_result)) {
 
 // Fetch all products with their brands, applying filters and sorting
 $product_query = "SELECT p.*, b.nome as marca_nome FROM produtos p JOIN marcas b ON p.marcaID = b.ID" . $where_clause . " ORDER BY " . $order_by;
+<<<<<<< Updated upstream
 $stmt = mysqli_prepare($conn, $product_query);
 
 if (!empty($search_params)) {
@@ -58,6 +69,9 @@ if (!empty($search_params)) {
 
 mysqli_stmt_execute($stmt);
 $product_result = mysqli_stmt_get_result($stmt);
+=======
+$product_result = mysqli_query($conexao, $product_query);
+>>>>>>> Stashed changes
 
 $products_by_category = [];
 $search_results = [];

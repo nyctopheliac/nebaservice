@@ -1,5 +1,8 @@
 <?php
+<<<<<<< Updated upstream
 session_start();
+=======
+>>>>>>> Stashed changes
 include 'connect.php';
 
 $mensagemErro = '';
@@ -54,7 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($email) || empty($password)) {
         $mensagemErro = "Todos os campos são obrigatórios.";
     } else {
+<<<<<<< Updated upstream
         $stmt = $conn->prepare("SELECT * FROM utilizadores WHERE email = ?");
+=======
+        $stmt = $conexao->prepare("SELECT * FROM utilizadores WHERE email = ?");
+>>>>>>> Stashed changes
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $resultado = $stmt->get_result();
@@ -67,7 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['userID'] = $utilizador['ID'];
                 $_SESSION['pfpURL'] = $utilizador['pfpURL'] ?? 'imagens/pfp.png'; // Armazenar pfpURL na sessão, com um valor padrão se não estiver definido
                 session_write_close(); // Guardar e fechar explicitamente a sessão
+<<<<<<< Updated upstream
                 header("Location: index.php?_t=" . time());
+=======
+                header("Location: index.php");
+>>>>>>> Stashed changes
                 exit();
             } else {
                 $_SESSION['tentativas_login']++;
