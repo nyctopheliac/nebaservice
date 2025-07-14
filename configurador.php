@@ -3,17 +3,17 @@ include 'connect.php';
 
 // Ir buscar os tipos de componente à base de dados
 $component_types_query = "SELECT * FROM tipocomponente ORDER BY ID ASC";
-$component_types_result = mysqli_query($conexao, $component_types_query);
+$component_types_result = mysqli_query($conn, $component_types_query);
 $component_types = mysqli_fetch_all($component_types_result, MYSQLI_ASSOC);
 
 // Ir buscar os produtos disponiveis para cada tipo de componente assumindo que cada tipo de componente tem uma categoria associada
 $products_query = "SELECT p.*, b.nome as marca_nome, c.nome as categoria_nome FROM produtos p JOIN marcas b ON p.marcaID = b.ID JOIN categorias c ON p.categoriaID = c.ID";
-$products_result = mysqli_query($conexao, $products_query);
+$products_result = mysqli_query($conn, $products_query);
 $products = mysqli_fetch_all($products_result, MYSQLI_ASSOC);
 
 // Ir buscar todas as especificações dos produtos
 $specs_query = "SELECT * FROM especificacoes";
-$specs_result = mysqli_query($conexao, $specs_query);
+$specs_result = mysqli_query($conn, $specs_query);
 $specifications = [];
 while ($row = mysqli_fetch_assoc($specs_result)) {
     $specifications[$row['produtoID']][] = $row;
@@ -21,7 +21,7 @@ while ($row = mysqli_fetch_assoc($specs_result)) {
 
 // Ir buscar todas as regras de compatibilidade
 $compatibility_query = "SELECT * FROM compatibilidade";
-$compatibility_result = mysqli_query($conexao, $compatibility_query);
+$compatibility_result = mysqli_query($conn, $compatibility_query);
 $compatibilities = [];
 while ($row = mysqli_fetch_assoc($compatibility_result)) {
     $compatibilities[$row['produtoID']][] = $row;

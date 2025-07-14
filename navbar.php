@@ -1,4 +1,5 @@
 <?php
+session_start();
 // barra_de_navegacao.php
 ?>
 <nav class="navbar navbar-expand-lg">

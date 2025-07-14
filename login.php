@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'connect.php';
 
 $mensagemErro = '';
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($email) || empty($password)) {
         $mensagemErro = "Todos os campos são obrigatórios.";
     } else {
-        $stmt = $conexao->prepare("SELECT * FROM utilizadores WHERE email = ?");
+        $stmt = $conn->prepare("SELECT * FROM utilizadores WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $resultado = $stmt->get_result();

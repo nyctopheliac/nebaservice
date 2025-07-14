@@ -15,7 +15,7 @@ $utilizadorID = $_SESSION['userID'];
 
 // Ir buscar os dados do utilizador
 $sql = "SELECT * FROM utilizadores WHERE ID = ?";
-$stmt = mysqli_prepare($conexao, $sql);
+$stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
@@ -28,7 +28,7 @@ $product_ids = array_keys($_SESSION['carrinho']);
 $placeholders = implode(',', array_fill(0, count($product_ids), '?'));
 
 $query = "SELECT * FROM produtos WHERE ID IN ($placeholders)";
-$stmt = mysqli_prepare($conexao, $query);
+$stmt = mysqli_prepare($conn, $query);
 
 // Colar os parâmetros
 $types = str_repeat('i', count($product_ids));
@@ -44,12 +44,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    mysqli_begin_transaction($conexao);
+    mysqli_begin_transaction($conn);
     try {
         // Verificar stock antes de criar a encomenda
         foreach ($cart_products as $item) {
             $sql_check_stock = "SELECT stock FROM produtos WHERE ID = ? FOR UPDATE"; // FOR UPDATE para bloquear a linha
-            $stmt_check_stock = mysqli_prepare($conexao, $sql_check_stock);
+            $stmt_check_stock = mysqli_prepare($conn, $sql_check_stock);
             mysqli_stmt_bind_param($stmt_check_stock, "i", $item['ID']);
             mysqli_stmt_execute($stmt_check_stock);
             $result_stock = mysqli_stmt_get_result($stmt_check_stock);
@@ -62,32 +62,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Criar a encomenda
         $sql_insert_order = "INSERT INTO encomendas (utilizadorID, total, estado) VALUES (?, ?, 'Pendente')";
-        $stmt_insert_order = mysqli_prepare($conexao, $sql_insert_order);
+        $stmt_insert_order = mysqli_prepare($conn, $sql_insert_order);
         mysqli_stmt_bind_param($stmt_insert_order, "id", $utilizadorID, $total_price);
         mysqli_stmt_execute($stmt_insert_order);
-        $encomendaID = mysqli_insert_id($conexao);
+        $encomendaID = mysqli_insert_id($conn);
 
         // Mover produtos do carrinho para a tabela de encomenda e decrementar stock
         foreach ($cart_products as $item) {
             $sql_insert_order_product = "INSERT INTO encomendaprodutos (encomendaID, produtoID, quantidade, precoUnitario) VALUES (?, ?, ?, ?)";
-            $stmt_insert_order_product = mysqli_prepare($conexao, $sql_insert_order_product);
+            $stmt_insert_order_product = mysqli_prepare($conn, $sql_insert_order_product);
             mysqli_stmt_bind_param($stmt_insert_order_product, "iiid", $encomendaID, $item['ID'], $item['quantidade'], $item['preco']);
             mysqli_stmt_execute($stmt_insert_order_product);
 
             $sql_update_stock = "UPDATE produtos SET stock = stock - ? WHERE ID = ?";
-            $stmt_update_stock = mysqli_prepare($conexao, $sql_update_stock);
+            $stmt_update_stock = mysqli_prepare($conn, $sql_update_stock);
             mysqli_stmt_bind_param($stmt_update_stock, "ii", $item['quantidade'], $item['ID']);
             mysqli_stmt_execute($stmt_update_stock);
         }
 
-        mysqli_commit($conexao);
+        mysqli_commit($conn);
         // Limpar o carrinho e guardar o ID da encomenda na sessão
         unset($_SESSION['carrinho']);
         $_SESSION['last_order_id'] = $encomendaID;
         header('Location: obrigado.php?order_id=' . $encomendaID);
         exit();
     } catch (mysqli_sql_exception $exception) {
-        mysqli_rollback($conexao);
+        mysqli_rollback($conn);
         // Log the error for debugging
         error_log("Erro na transação de checkout: " . $exception->getMessage());
         // Redirect to an error page or show a user-friendly message

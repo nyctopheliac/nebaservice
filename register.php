@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'connect.php';
 
 if (isset($_SESSION['email'])) {
@@ -31,14 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($mensagensErro)) {
-        $stmt_check = $conexao->prepare("SELECT ID FROM utilizadores WHERE nomeUtilizador = ? OR email = ?");
+        $stmt_check = $conn->prepare("SELECT ID FROM utilizadores WHERE nomeUtilizador = ? OR email = ?");
         $stmt_check->bind_param("ss", $nomeUtilizador, $email);
         $stmt_check->execute();
         if ($stmt_check->get_result()->num_rows > 0) {
             $mensagensErro[] = "O nome de utilizador ou o email já se encontram registados.";
         } else {
             $hashedPassword = password_hash($senha, PASSWORD_BCRYPT);
-            $stmt_insert = $conexao->prepare("INSERT INTO utilizadores (nomeUtilizador, email, passwordHash) VALUES (?, ?, ?)");
+            $stmt_insert = $conn->prepare("INSERT INTO utilizadores (nomeUtilizador, email, passwordHash) VALUES (?, ?, ?)");
             $stmt_insert->bind_param("sss", $nomeUtilizador, $email, $hashedPassword);
             
             if ($stmt_insert->execute()) {
