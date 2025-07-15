@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             unset($_SESSION['tempo_bloqueio']);
         }
     }
+}
 
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
@@ -53,29 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute();
     $resultado = $stmt->get_result();
 
-    if ($resultado->num_rows > 0) {
-        $utilizador = $resultado->fetch_assoc();
-        if (password_verify($password, $utilizador['passwordHash'])) {
-            // Login bem-sucedido
-            session_regenerate_id(true);
-            $_SESSION['email'] = $utilizador['email'];
-            $_SESSION['userID'] = $utilizador['ID'];
-            $_SESSION['pfpURL'] = $utilizador['pfpURL'] ?? 'imagens/pfp.png';
-            $_SESSION['tentativas_login'] = 0; // Resetar tentativas
-            unset($_SESSION['tempo_bloqueio']);
-            session_write_close();
-            send_json_response(true, "Login bem-sucedido!", "index.php");
-        } else {
-            // Palavra-passe incorreta
-            $_SESSION['tentativas_login']++;
-            send_json_response(false, "Palavra-passe ou email inválido.");
-        }
-    } else {
-        // Utilizador não encontrado
-        $_SESSION['tentativas_login']++;
-        send_json_response(false, "Palavra-passe ou email inválido.");
-    }
-}
+        
 ?>
 
 <!DOCTYPE html>
