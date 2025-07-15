@@ -26,13 +26,14 @@ $encomendas = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="encomendas.css">
     <title>As Minhas Encomendas</title>
 </head>
 <body>
 
     <?php include 'navbar.php'; ?>
 
-    <div class="container">
+    <div class="container encomendas-content">
         <h1>As Minhas Encomendas</h1>
         <?php if (empty($encomendas)): ?>
             <p>Não tem encomendas.</p>

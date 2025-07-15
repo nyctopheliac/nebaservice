@@ -2,9 +2,8 @@
 session_start();
 include 'connect.php';
 
-if (isset($_GET['id']) && isset($_SESSION['userID'])) {
-    $produtoID = $_GET['id'];
-    $utilizadorID = $_SESSION['userID'];
+// Function to add a single product to the cart
+function add_product_to_cart($conn, $utilizadorID, $produtoID) {
     $quantidade = 1; // Default quantity
 
     // Check if the product is already in the cart
@@ -29,12 +28,50 @@ if (isset($_GET['id']) && isset($_SESSION['userID'])) {
         mysqli_stmt_bind_param($stmt, "iii", $utilizadorID, $produtoID, $quantidade);
         mysqli_stmt_execute($stmt);
     }
+    return true;
+}
 
-    header('Content-Type: application/json');
-    echo json_encode(['message' => 'Produto adicionado ao carrinho!']);
+if (isset($_SESSION['userID'])) {
+    $utilizadorID = $_SESSION['userID'];
+
+    if (isset($_GET['id'])) {
+        // Handle single product addition from catalogo.php
+        $produtoID = $_GET['id'];
+        if (add_product_to_cart($conn, $utilizadorID, $produtoID)) {
+            header('Content-Type: application/json');
+            echo json_encode(['message' => 'Produto adicionado ao carrinho!']);
+        } else {
+            header('Content-Type: application/json');
+            http_response_code(400);
+            echo json_encode(['message' => 'Erro ao adicionar produto ao carrinho.']);
+        }
+    } elseif (isset($_POST['configuracao'])) {
+        // Handle multiple product addition from configurador.php
+        $configuracao = json_decode($_POST['configuracao'], true);
+        $all_added = true;
+        foreach ($configuracao as $produtoID) {
+            if (!add_product_to_cart($conn, $utilizadorID, $produtoID)) {
+                $all_added = false;
+                break;
+            }
+        }
+
+        if ($all_added) {
+            header('Content-Type: application/json');
+            echo json_encode(['message' => 'Configuração adicionada ao carrinho!']);
+        } else {
+            header('Content-Type: application/json');
+            http_response_code(400);
+            echo json_encode(['message' => 'Erro ao adicionar configuração ao carrinho.']);
+        }
+    } else {
+        header('Content-Type: application/json');
+        http_response_code(400);
+        echo json_encode(['message' => 'Dados inválidos para adicionar ao carrinho.']);
+    }
 } else {
     header('Content-Type: application/json');
-    http_response_code(400);
-    echo json_encode(['message' => 'Erro ao adicionar produto ao carrinho.']);
+    http_response_code(401);
+    echo json_encode(['message' => 'Utilizador não autenticado.']);
 }
 ?>

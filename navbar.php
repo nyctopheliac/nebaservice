@@ -10,13 +10,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php">Home</a>
+                    <a class="nav-link animated-nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="catalogo.php">Catálogo</a>
+                    <a class="nav-link animated-nav-link" href="catalogo.php">Catálogo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="configurador.php">Configurador</a>
+                    <a class="nav-link animated-nav-link" href="configurador.php">Configurador</a>
                 </li>
                 <li class="nav-item">
                     
@@ -36,11 +36,11 @@
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
+                        <a class="nav-link animated-nav-link" href="login.php">Login</a>
                     </li>
                 <?php endif; ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="carrinho.php">Carrinho</a>
+                    <a class="nav-link animated-nav-link" href="carrinho.php">Carrinho</a>
                 </li>
             </ul>
         </div>

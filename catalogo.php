@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'connect.php';
 
 // --- Lógica de Filtragem e Ordenação ---
@@ -99,7 +100,7 @@ if ($product_result) {
 
 <?php include 'navbar.php'; ?>
 
-<main class="container-fluid mt-5 px-lg-5">
+<main class="container-fluid mt-5 px-lg-5 mb-5">
     <h1 class="text-center mb-5">Catálogo de Produtos</h1>
 
     <div class="row catalog-main-row">

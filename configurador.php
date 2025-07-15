@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'connect.php';
 
 // Ir buscar os tipos de componente à base de dados
@@ -53,7 +54,23 @@ while ($row = mysqli_fetch_assoc($compatibility_result)) {
     <h1 class="text-center mb-5">Configurador de PC</h1>
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-3">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Filtros</h5>
+                    <div class="mb-3">
+                        <label for="minPrice" class="form-label">Preço Mínimo (€)</label>
+                        <input type="number" class="form-control form-control-sm" id="minPrice" placeholder="0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="maxPrice" class="form-label">Preço Máximo (€)</label>
+                        <input type="number" class="form-control form-control-sm" id="maxPrice" placeholder="10000">
+                    </div>
+                    <button type="button" id="applyFiltersBtn" class="btn btn-primary w-100">Aplicar Filtros</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
             <form id="configuratorForm">
                 <?php foreach ($component_types as $type): ?>
                     <div class="mb-3">
@@ -73,7 +90,7 @@ while ($row = mysqli_fetch_assoc($compatibility_result)) {
             </form>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card sticky-top">
                 <div class="card-body">
                     <h4 class="card-title themed-title">Resumo da Configuração</h4>
@@ -91,195 +108,27 @@ while ($row = mysqli_fetch_assoc($compatibility_result)) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>
+<script src="confirmation.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const productSelects = document.querySelectorAll('.product-select');
-        const summaryList = document.getElementById('summaryList');
-        const totalPriceEl = document.getElementById('totalPrice');
-        const addToCartBtn = document.getElementById('addToCartBtn');
+        const allProducts = <?= json_encode($products) ?>;
+        const allSpecifications = <?= json_encode($specifications) ?>;
+        const allCompatibilities = <?= json_encode($compatibilities) ?>;
+        const allCategories = <?= json_encode($component_types) ?>;
 
-        let selectedProducts = {};
-        let totalPrice = 0;
-
-        productSelects.forEach(select => {
-            select.addEventListener('change', function() {
-                const productId = this.value;
-                const typeId = this.dataset.typeId;
-                const selectedOption = this.options[this.selectedIndex];
-                const price = parseFloat(selectedOption.dataset.price) || 0;
-                const name = selectedOption.text;
-
-                if (selectedProducts[typeId]) {
-                    totalPrice -= selectedProducts[typeId].price;
-                }
-
-                if (productId) {
-                    selectedProducts[typeId] = { id: productId, name: name, price: price };
-                    totalPrice += price;
-                } else {
-                    delete selectedProducts[typeId];
-                }
-
-                updateSummary();
-                updateTotalPrice();
-            });
-        });
-
-        function updateSummary() {
-            summaryList.innerHTML = '';
-            for (const typeId in selectedProducts) {
-                const product = selectedProducts[typeId];
-                const listItem = document.createElement('li');
-                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-                listItem.textContent = product.name;
-                summaryList.appendChild(listItem);
-            }
-        }
-
-        function updateTotalPrice() {
-            totalPriceEl.textContent = `€${totalPrice.toFixed(2).replace('.', ',')}`;
-        }
-
-        function getProductSpecs(productId) {
-            return allSpecifications[productId] || [];
-        }
-
-        function getProductCompatibility(productId) {
-            return allCompatibilities[productId] || [];
-        }
-
-        function filterProducts() {
-            const selectedCpu = Object.values(selectedProducts).find(p => p.categoria_nome === 'Processadores');
-            const selectedMotherboard = Object.values(selectedProducts).find(p => p.categoria_nome === 'Motherboards');
-
-            productSelects.forEach(select => {
-                const currentTypeId = select.dataset.typeId;
-                const currentCategory = allCategories.find(cat => cat.ID == currentTypeId);
-                const currentCategoryName = currentCategory ? currentCategory.nome : '';
-                const previouslySelectedValue = select.value;
-
-                // Preserve the selected option if it exists, to avoid resetting the dropdown
-                let previouslySelectedOptionHTML = '';
-                if (previouslySelectedValue) {
-                    const prevOption = select.querySelector(`option[value="${previouslySelectedValue}"]`);
-                    if (prevOption) {
-                        previouslySelectedOptionHTML = prevOption.outerHTML;
-                    }
-                }
-
-                select.innerHTML = '<option value="" data-price="0">Selecione...</option>';
-
-                allProducts.forEach(product => {
-                    // Basic category check: Does the product belong in this dropdown?
-                    if (product.categoriaID != currentTypeId) {
-                        return;
-                    }
-
-                    let isCompatible = true;
-
-                    // Compatibility Checks
-                    if (currentCategoryName === 'Processadores') {
-                        if (selectedMotherboard) {
-                            const cpuSocket = (getProductSpecs(product.ID).find(s => s.chaves === 'Socket') || {}).valor;
-                            const motherboardSocket = (getProductSpecs(selectedMotherboard.id).find(s => s.chaves === 'Socket') || {}).valor;
-                            if (cpuSocket && motherboardSocket && cpuSocket !== motherboardSocket) {
-                                isCompatible = false;
-                            }
-                        }
-                    } else if (currentCategoryName === 'Motherboards') {
-                        if (selectedCpu) {
-                            const motherboardSocket = (getProductSpecs(product.ID).find(s => s.chaves === 'Socket') || {}).valor;
-                            const cpuSocket = (getProductSpecs(selectedCpu.id).find(s => s.chaves === 'Socket') || {}).valor;
-                            if (motherboardSocket && cpuSocket && motherboardSocket !== cpuSocket) {
-                                isCompatible = false;
-                            }
-                        }
-                    }
-                    // Add more rules here, e.g., for RAM type (DDR4/DDR5) vs Motherboard support
-
-                    if (isCompatible) {
-                        const option = document.createElement('option');
-                        option.value = product.ID;
-                        option.dataset.price = product.preco;
-                        // Ensure price is treated as a number for formatting
-                        const price = parseFloat(product.preco);
-                        option.textContent = `${product.nome} - €${price.toFixed(2).replace('.', ',')}`;
-                        select.appendChild(option);
-                    }
-                });
-
-                // Restore selection if the previously selected option is still available
-                if (select.querySelector(`option[value="${previouslySelectedValue}"]`)) {
-                    select.value = previouslySelectedValue;
-                } else {
-                    // If the previously selected item is no longer compatible, remove it from the summary
-                    if (previouslySelectedValue && selectedProducts[currentTypeId] && selectedProducts[currentTypeId].id == previouslySelectedValue) {
-                        // Recalculate total price by removing the incompatible item
-                        totalPrice -= selectedProducts[currentTypeId].price;
-                        delete selectedProducts[currentTypeId];
-                        updateSummary();
-                        updateTotalPrice();
-                    }
-                    select.value = ""; // Reset dropdown
-                }
-            });
-        }
-
-        productSelects.forEach(select => {
-            select.addEventListener('change', function() {
-                const productId = this.value;
-                const typeId = this.dataset.typeId;
-                const selectedOption = this.options[this.selectedIndex];
-                const price = parseFloat(selectedOption.dataset.price) || 0;
-                const name = selectedOption.textContent;
-
-                if (selectedProducts[typeId]) {
-                    totalPrice -= selectedProducts[typeId].price;
-                }
-
-                if (productId) {
-                    selectedProducts[typeId] = { id: productId, name: name, price: price, categoria_nome: allCategories.find(cat => cat.ID == typeId).nome };
-                    totalPrice += price;
-                } else {
-                    delete selectedProducts[typeId];
-                }
-
-                updateSummary();
-                updateTotalPrice();
-                filterProducts(); // Re-filter products after a selection changes
-            });
-        });
-
-        addToCartBtn.addEventListener('click', function() {
-            const productIds = Object.values(selectedProducts).map(p => p.id);
-            if (productIds.length > 0) {
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = 'adicionar_carrinho.php';
-
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'configuracao';
-                input.value = JSON.stringify(productIds);
-
-                form.appendChild(input);
-                document.body.appendChild(form);
-                form.submit();
-            } else {
-                alert('Selecione pelo menos um componente.');
-            }
-        });
-
-        // Initial filtering when the page loads
-        filterProducts();
-
+        // Now load global.js after these variables are defined
+        const globalScript = document.createElement('script');
+        globalScript.src = 'global.js';
+        document.body.appendChild(globalScript);
     });
-
+</script>
+<script>
     const allProducts = <?= json_encode($products) ?>;
     const allSpecifications = <?= json_encode($specifications) ?>;
     const allCompatibilities = <?= json_encode($compatibilities) ?>;
     const allCategories = <?= json_encode($component_types) ?>;
-
 </script>
+</body>
+</html>
 </body>
 </html>
