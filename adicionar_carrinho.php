@@ -2,8 +2,8 @@
 session_start();
 include 'connect.php';
 
-if (isset($_POST['produtoID']) && isset($_SESSION['userID'])) {
-    $produtoID = $_POST['produtoID'];
+if (isset($_GET['id']) && isset($_SESSION['userID'])) {
+    $produtoID = $_GET['id'];
     $utilizadorID = $_SESSION['userID'];
     $quantidade = 1; // Default quantity
 
@@ -30,8 +30,11 @@ if (isset($_POST['produtoID']) && isset($_SESSION['userID'])) {
         mysqli_stmt_execute($stmt);
     }
 
-    echo "Produto adicionado ao carrinho!";
+    header('Content-Type: application/json');
+    echo json_encode(['message' => 'Produto adicionado ao carrinho!']);
 } else {
-    echo "Erro ao adicionar produto ao carrinho.";
+    header('Content-Type: application/json');
+    http_response_code(400);
+    echo json_encode(['message' => 'Erro ao adicionar produto ao carrinho.']);
 }
 ?>

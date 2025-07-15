@@ -85,6 +85,7 @@ if ($product_result) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="catalogo.css">
+    <link rel="stylesheet" href="confirmation.css">
     <title>Catálogo</title>
 </head>
 <body>
@@ -153,7 +154,7 @@ if ($product_result) {
                                                 <img src="imagens/<?= htmlspecialchars($product['imagemPrincipal']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['nome']) ?>">
                                             </a>
                                         </div>
-                                                                                    <a href="adicionar_carrinho.php?id=<?= $product['ID'] ?>" class="btn btn-primary btn-add-to-cart"><i class="bi bi-cart"></i></a>
+                                                                                    <a href="adicionar_carrinho.php?id=<?= $product['ID'] ?>" class="btn btn-primary btn-add-to-cart" data-product-id="<?= $product['ID'] ?>"><i class="bi bi-cart"></i></a>
                                         <div class="card-body d-flex flex-column p-3">
                                             <div class="flex-grow-1">
                                                 <p class="product-brand text-muted small mb-1"><?= htmlspecialchars($product['marca_nome']) ?></p>
@@ -189,7 +190,7 @@ if ($product_result) {
                                                     <img src="imagens/<?= htmlspecialchars($product['imagemPrincipal']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['nome']) ?>">
                                                 </a>
                                             </div>
-                                            <a href="adicionar_carrinho.php?id=<?= $product['ID'] ?>" class="btn btn-primary btn-add-to-cart"><i class="bi bi-cart"></i></a>
+                                            <a href="adicionar_carrinho.php?id=<?= $product['ID'] ?>" class="btn btn-primary btn-add-to-cart" data-product-id="<?= $product['ID'] ?>"><i class="bi bi-cart"></i></a>
                                             <div class="card-body d-flex flex-column p-3">
                                                 <div class="flex-grow-1">
                                                     <p class="product-brand text-muted small mb-1"><?= htmlspecialchars($product['marca_nome']) ?></p>
@@ -219,24 +220,7 @@ if ($product_result) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Scroll suave para as âncoras de categoria
-    document.querySelectorAll('.category-sidebar a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            let targetId = this.getAttribute('href');
-            let targetElement = document.querySelector(targetId);
-
-            if(targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-});
-</script>
+<script src="confirmation.js"></script>
+<script src="global.js"></script>
 </body>
 </html>
