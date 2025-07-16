@@ -30,6 +30,9 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="definicoes.php">Definições de Perfil</a></li>
                             <li><a class="dropdown-item" href="encomendas.php">Encomendas</a></li>
+                            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                                <li><a class="dropdown-item" href="admin/index.php">Backoffice</a></li>
+                            <?php endif; ?>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="logout.php">Sair</a></li>
                         </ul>

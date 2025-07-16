@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mysqli_stmt_execute($stmt_update_stock);
         }
 
-        mysqli_commit($conn);
+        mysqli_commit($conexao);
         // Limpar o carrinho e guardar o ID da encomenda na sessão
         unset($_SESSION['carrinho']);
         $_SESSION['last_order_id'] = $encomendaID;

@@ -3,7 +3,7 @@ session_start();
 include 'connect.php';
 
 // Function to add a single product to the cart
-function add_product_to_cart($conn, $utilizadorID, $produtoID) {
+function add_product_to_cart($conexao, $utilizadorID, $produtoID) {
     $quantidade = 1; // Default quantity
 
     // Check if the product is already in the cart
@@ -37,7 +37,7 @@ if (isset($_SESSION['userID'])) {
     if (isset($_GET['id'])) {
         // Handle single product addition from catalogo.php
         $produtoID = $_GET['id'];
-        if (add_product_to_cart($conn, $utilizadorID, $produtoID)) {
+        if (add_product_to_cart($conexao, $utilizadorID, $produtoID)) {
             header('Content-Type: application/json');
             echo json_encode(['message' => 'Produto adicionado ao carrinho!']);
         } else {
@@ -50,7 +50,7 @@ if (isset($_SESSION['userID'])) {
         $configuracao = json_decode($_POST['configuracao'], true);
         $all_added = true;
         foreach ($configuracao as $produtoID) {
-            if (!add_product_to_cart($conn, $utilizadorID, $produtoID)) {
+            if (!add_product_to_cart($conexao, $utilizadorID, $produtoID)) {
                 $all_added = false;
                 break;
             }

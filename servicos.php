@@ -17,30 +17,7 @@
     </svg>
   </button>
 
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      <a class="navbar-brand nav-logo" href="index.php">Neba<span>Service</span></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="catalogo.php">Catalogo</a></li>
-          <li class="nav-item"><a class="nav-link" href="servicos.php">Serviços</a></li>
-          <li class="nav-item ms-lg-3">
-              <a href="login.php" class="btn btn-outline">Login</a>
-          </li>
-          <li class="nav-item profile-icon">
-            <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
-            <div class="profile-dropdown" id="profileDropdown">
-                <a href="logout.php">Logout</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <?php include 'navbar.php'; ?>
 
   <main class="container">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5"><div class="col-10 col-sm-8 col-lg-6">

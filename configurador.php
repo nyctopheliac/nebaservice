@@ -9,12 +9,12 @@ $component_types = mysqli_fetch_all($component_types_result, MYSQLI_ASSOC);
 
 // Ir buscar os produtos disponiveis para cada tipo de componente assumindo que cada tipo de componente tem uma categoria associada
 $products_query = "SELECT p.*, b.nome as marca_nome, c.nome as categoria_nome FROM produtos p JOIN marcas b ON p.marcaID = b.ID JOIN categorias c ON p.categoriaID = c.ID";
-$products_result = mysqli_query($conn, $products_query);
+$products_result = mysqli_query($conexao, $products_query);
 $products = mysqli_fetch_all($products_result, MYSQLI_ASSOC);
 
 // Ir buscar todas as especificações dos produtos
 $specs_query = "SELECT * FROM especificacoes";
-$specs_result = mysqli_query($conn, $specs_query);
+$specs_result = mysqli_query($conexao, $specs_query);
 $specifications = [];
 while ($row = mysqli_fetch_assoc($specs_result)) {
     $specifications[$row['produtoID']][] = $row;

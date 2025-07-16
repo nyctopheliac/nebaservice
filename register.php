@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         send_json_response(false, implode("\n", $mensagensErro));
     }
 
-    $stmt_check = $conn->prepare("SELECT ID FROM utilizadores WHERE nomeUtilizador = ? OR email = ?");
+    $stmt_check = $conexao->prepare("SELECT ID FROM utilizadores WHERE nomeUtilizador = ? OR email = ?");
     $stmt_check->bind_param("ss", $nomeUtilizador, $email);
     $stmt_check->execute();
     if ($stmt_check->get_result()->num_rows > 0) {

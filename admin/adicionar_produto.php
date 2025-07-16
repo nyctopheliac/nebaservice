@@ -28,10 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stock = $_POST['stock'];
     $categoriaID = $_POST['categoriaID'];
     $marcaID = $_POST['marcaID'];
+    $imagemPrincipal = $_POST['imagemPrincipal'];
 
-    $sql = "INSERT INTO produtos (nome, descricao, preco, stock, categoriaID, marcaID) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO produtos (nome, descricao, preco, stock, categoriaID, marcaID, imagemPrincipal) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conexao, $sql);
-    mysqli_stmt_bind_param($stmt, "ssdiis", $nome, $descricao, $preco, $stock, $categoriaID, $marcaID);
+    mysqli_stmt_bind_param($stmt, "ssdiisi", $nome, $descricao, $preco, $stock, $categoriaID, $marcaID, $imagemPrincipal);
     
     if (mysqli_stmt_execute($stmt)) {
         header('Location: gerir_produtos.php');
@@ -99,6 +100,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <option value="<?= $marca['ID'] ?>"><?= htmlspecialchars($marca['nome']) ?></option>
                 <?php endforeach; ?>
             </select>
+        </div>
+        <div class="mb-3">
+            <label for="imagemPrincipal" class="form-label">URL da Imagem Principal</label>
+            <input type="text" class="form-control" id="imagemPrincipal" name="imagemPrincipal">
         </div>
         <button type="submit" class="btn btn-primary">Adicionar</button>
         <a href="gerir_produtos.php" class="btn btn-secondary">Cancelar</a>
