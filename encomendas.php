@@ -11,7 +11,7 @@ $utilizadorID = $_SESSION['userID'];
 
 // Fetch orders
 $sql = "SELECT * FROM encomendas WHERE utilizadorID = ? ORDER BY data DESC";
-$stmt = mysqli_prepare($conn, $sql);
+$stmt = mysqli_prepare($conexao, $sql);
 mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
@@ -50,7 +50,7 @@ $encomendas = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         <ul>
                             <?php
                             $sql = "SELECT p.nome, ep.quantidade, ep.precoUnitario FROM encomendaprodutos ep JOIN produtos p ON ep.produtoID = p.ID WHERE ep.encomendaID = ?";
-                            $stmt = mysqli_prepare($conn, $sql);
+                            $stmt = mysqli_prepare($conexao, $sql);
                             mysqli_stmt_bind_param($stmt, "i", $encomenda['ID']);
                             mysqli_stmt_execute($stmt);
                             $produtosResult = mysqli_stmt_get_result($stmt);

@@ -8,7 +8,7 @@ function add_product_to_cart($conn, $utilizadorID, $produtoID) {
 
     // Check if the product is already in the cart
     $sql = "SELECT * FROM carrinho WHERE utilizadorID = ? AND produtoID = ?";
-    $stmt = mysqli_prepare($conn, $sql);
+    $stmt = mysqli_prepare($conexao, $sql);
     mysqli_stmt_bind_param($stmt, "ii", $utilizadorID, $produtoID);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -18,13 +18,13 @@ function add_product_to_cart($conn, $utilizadorID, $produtoID) {
         $row = mysqli_fetch_assoc($result);
         $newQuantity = $row['quantidade'] + 1;
         $sql = "UPDATE carrinho SET quantidade = ? WHERE ID = ?";
-        $stmt = mysqli_prepare($conn, $sql);
+        $stmt = mysqli_prepare($conexao, $sql);
         mysqli_stmt_bind_param($stmt, "ii", $newQuantity, $row['ID']);
         mysqli_stmt_execute($stmt);
     } else {
         // Product not in cart, insert new row
         $sql = "INSERT INTO carrinho (utilizadorID, produtoID, quantidade) VALUES (?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $sql);
+        $stmt = mysqli_prepare($conexao, $sql);
         mysqli_stmt_bind_param($stmt, "iii", $utilizadorID, $produtoID, $quantidade);
         mysqli_stmt_execute($stmt);
     }

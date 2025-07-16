@@ -51,7 +51,7 @@ while ($row = mysqli_fetch_assoc($category_result)) {
 
 // Fetch all products with their brands, applying filters and sorting
 $product_query = "SELECT p.*, b.nome as marca_nome FROM produtos p JOIN marcas b ON p.marcaID = b.ID" . $where_clause . " ORDER BY " . $order_by;
-$stmt = mysqli_prepare($conn, $product_query);
+$stmt = mysqli_prepare($conexao, $product_query);
 
 if (!empty($search_params)) {
     mysqli_stmt_bind_param($stmt, str_repeat('s', count($search_params)), ...$search_params);

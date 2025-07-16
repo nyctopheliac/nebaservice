@@ -1,5 +1,5 @@
 <?php
-define('DB_SERVER', 'mysql');
+define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 define('DB_NAME', 'nebaservice');

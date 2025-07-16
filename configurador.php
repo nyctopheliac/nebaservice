@@ -22,7 +22,7 @@ while ($row = mysqli_fetch_assoc($specs_result)) {
 
 // Ir buscar todas as regras de compatibilidade
 $compatibility_query = "SELECT * FROM compatibilidade";
-$compatibility_result = mysqli_query($conn, $compatibility_query);
+$compatibility_result = mysqli_query($conexao, $compatibility_query);
 $compatibilities = [];
 while ($row = mysqli_fetch_assoc($compatibility_result)) {
     $compatibilities[$row['produtoID']][] = $row;

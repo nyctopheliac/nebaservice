@@ -14,20 +14,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $carrinhoID = $_POST['carrinhoID'];
         $quantidade = $_POST['quantidade'];
         $sql = "UPDATE carrinho SET quantidade = ? WHERE ID = ? AND utilizadorID = ?";
-        $stmt = mysqli_prepare($conn, $sql);
+        $stmt = mysqli_prepare($conexao, $sql);
         mysqli_stmt_bind_param($stmt, "iii", $quantidade, $carrinhoID, $utilizadorID);
         mysqli_stmt_execute($stmt);
     } elseif (isset($_POST['remove_item'])) {
         $carrinhoID = $_POST['carrinhoID'];
         $sql = "DELETE FROM carrinho WHERE ID = ? AND utilizadorID = ?";
-        $stmt = mysqli_prepare($conn, $sql);
+        $stmt = mysqli_prepare($conexao, $sql);
         mysqli_stmt_bind_param($stmt, "ii", $carrinhoID, $utilizadorID);
         mysqli_stmt_execute($stmt);
     }
 }
 
 $sql = "SELECT c.ID, p.nome, p.preco, c.quantidade FROM carrinho c JOIN produtos p ON c.produtoID = p.ID WHERE c.utilizadorID = ?";
-$stmt = mysqli_prepare($conn, $sql);
+$stmt = mysqli_prepare($conexao, $sql);
 mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);

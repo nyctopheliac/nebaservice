@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: obrigado.php?order_id=' . $encomendaID);
         exit();
     } catch (mysqli_sql_exception $exception) {
-        mysqli_rollback($conn);
+        mysqli_rollback($conexao);
         // Log the error for debugging
         error_log("Erro na transação de checkout: " . $exception->getMessage());
         // Redirect to an error page or show a user-friendly message

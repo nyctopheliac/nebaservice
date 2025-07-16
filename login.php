@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         send_json_response(false, "Todos os campos são obrigatórios.");
     }
 
-    $stmt = $conn->prepare("SELECT * FROM utilizadores WHERE email = ?");
+    $stmt = $conexao->prepare("SELECT * FROM utilizadores WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $resultado = $stmt->get_result();

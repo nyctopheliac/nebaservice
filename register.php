@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         send_json_response(false, "O nome de utilizador ou o email já se encontram registados.");
     } else {
         $hashedPassword = password_hash($senha, PASSWORD_BCRYPT);
-        $stmt_insert = $conn->prepare("INSERT INTO utilizadores (nomeUtilizador, email, passwordHash) VALUES (?, ?, ?)");
+        $stmt_insert = $conexao->prepare("INSERT INTO utilizadores (nomeUtilizador, email, passwordHash) VALUES (?, ?, ?)");
         $stmt_insert->bind_param("sss", $nomeUtilizador, $email, $hashedPassword);
         
         if ($stmt_insert->execute()) {
