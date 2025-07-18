@@ -11,7 +11,7 @@ $utilizadorID = $_SESSION['userID'];
 
 // Fetch orders
 $sql = "SELECT * FROM encomendas WHERE utilizadorID = ? ORDER BY data DESC";
-$stmt = mysqli_prepare($conn, $sql);
+$stmt = mysqli_prepare($conexao, $sql);
 mysqli_stmt_bind_param($stmt, "i", $utilizadorID);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
@@ -26,13 +26,14 @@ $encomendas = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="encomendas.css">
     <title>As Minhas Encomendas</title>
 </head>
 <body>
 
     <?php include 'navbar.php'; ?>
 
-    <div class="container">
+    <div class="container encomendas-content">
         <h1>As Minhas Encomendas</h1>
         <?php if (empty($encomendas)): ?>
             <p>Não tem encomendas.</p>
@@ -49,7 +50,7 @@ $encomendas = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         <ul>
                             <?php
                             $sql = "SELECT p.nome, ep.quantidade, ep.precoUnitario FROM encomendaprodutos ep JOIN produtos p ON ep.produtoID = p.ID WHERE ep.encomendaID = ?";
-                            $stmt = mysqli_prepare($conn, $sql);
+                            $stmt = mysqli_prepare($conexao, $sql);
                             mysqli_stmt_bind_param($stmt, "i", $encomenda['ID']);
                             mysqli_stmt_execute($stmt);
                             $produtosResult = mysqli_stmt_get_result($stmt);

@@ -17,30 +17,7 @@
     </svg>
   </button>
 
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      <a class="navbar-brand nav-logo" href="index.php">Neba<span>Service</span></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="catalogo.php">Catalogo</a></li>
-          <li class="nav-item"><a class="nav-link" href="servicos.php">Serviços</a></li>
-          <li class="nav-item ms-lg-3">
-              <a href="login.php" class="btn btn-outline">Login</a>
-          </li>
-          <li class="nav-item profile-icon">
-            <img src="images/profile-icon.png" alt="Profile" width="30" height="30" id="profileIcon">
-            <div class="profile-dropdown" id="profileDropdown">
-                <a href="logout.php">Logout</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <?php include 'navbar.php'; ?>
 
   <main class="container">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5"><div class="col-10 col-sm-8 col-lg-6">
@@ -48,41 +25,7 @@
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-        <div class="row">
-          <div class="col-md-5">
-            <h4>NebaService</h4>
-            <p>&copy; 2025 NebaService. Todos os direitos reservados.</p>
-          </div>
-          <div class="col-md-3">
-            <h5>Precisa de ajuda?</h5>
-            <ul class="list-unstyled">
-                <li><a href="ajuda.php">Ajuda</a></li>
-                <li><a href="encomendas.php">Envio de encomendas e portes</a></li>
-                <li><a href="trocaedevo.php">Trocas e devoluções</a></li>
-            </ul>
-          </div>
-          <div class="col-md-2">
-            <h5>Links</h5>
-            <ul class="list-unstyled">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="servicos.php">Serviços</a></li>
-                <li><a href="catalogo.php">Catalogo</a></li>
-            </ul>
-          </div>
-          <div class="col-md-2">
-            <h5>Contactos</h5>
-            <ul class="list-unstyled">
-                <li>info@nebaservice.com</li>
-                <li>+351 xxx-xxx-xxx</li>
-                <li><a href="#">Instagram</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <?php include 'footer.php'; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script>

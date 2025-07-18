@@ -1,0 +1,15 @@
+.encomendas-content {
+    color: var(--text-color);
+}
+
+.dark .encomendas-content {
+    color: var(--dark-text-color);
+}
+
+.encomendas-content h1, .encomendas-content h5, .encomendas-content h6 {
+    color: var(--heading-color);
+}
+
+.dark .encomendas-content h1, .dark .encomendas-content h5, .dark .encomendas-content h6 {
+    color: var(--dark-heading-color);
+}

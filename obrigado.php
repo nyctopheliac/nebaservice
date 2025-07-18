@@ -1,5 +1,10 @@
 
 
+<?php
+session_start();
+include 'connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>

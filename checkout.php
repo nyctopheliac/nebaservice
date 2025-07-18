@@ -80,14 +80,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mysqli_stmt_execute($stmt_update_stock);
         }
 
-        mysqli_commit($conn);
+        mysqli_commit($conexao);
         // Limpar o carrinho e guardar o ID da encomenda na sessão
         unset($_SESSION['carrinho']);
         $_SESSION['last_order_id'] = $encomendaID;
         header('Location: obrigado.php?order_id=' . $encomendaID);
         exit();
     } catch (mysqli_sql_exception $exception) {
-        mysqli_rollback($conn);
+        mysqli_rollback($conexao);
         // Log the error for debugging
         error_log("Erro na transação de checkout: " . $exception->getMessage());
         // Redirect to an error page or show a user-friendly message

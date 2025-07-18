@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
     }
 
     // Após a atualização, obtém novamente os dados do utilizador para exibir os valores mais recentes no formulário.
-    $stmt_fetch_refresh = $conn->prepare("SELECT nomeCompleto, morada, codigoPostal, localidade, pfpURL, telefone, nif FROM utilizadores WHERE ID = ?");
+    $stmt_fetch_refresh = $conexao->prepare("SELECT nomeCompleto, morada, codigoPostal, localidade, pfpURL, telefone, nif FROM utilizadores WHERE ID = ?");
     $stmt_fetch_refresh->bind_param("i", $userID);
     $stmt_fetch_refresh->execute();
     $utilizador = $stmt_fetch_refresh->get_result()->fetch_assoc();

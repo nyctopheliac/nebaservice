@@ -238,6 +238,7 @@ CREATE TABLE IF NOT EXISTS `utilizadores` (
   `dataRegisto` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `ultimoLogin` timestamp NULL DEFAULT NULL,
   `ativo` tinyint(1) DEFAULT '1',
+  `role` varchar(20) NOT NULL DEFAULT 'user',
   `tokenRecuperacao` varchar(100) DEFAULT NULL,
   `tokenValidade` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`),

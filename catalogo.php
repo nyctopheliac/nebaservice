@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'connect.php';
 
 // --- Lógica de Filtragem e Ordenação ---
@@ -50,7 +51,7 @@ while ($row = mysqli_fetch_assoc($category_result)) {
 
 // Fetch all products with their brands, applying filters and sorting
 $product_query = "SELECT p.*, b.nome as marca_nome FROM produtos p JOIN marcas b ON p.marcaID = b.ID" . $where_clause . " ORDER BY " . $order_by;
-$stmt = mysqli_prepare($conn, $product_query);
+$stmt = mysqli_prepare($conexao, $product_query);
 
 if (!empty($search_params)) {
     mysqli_stmt_bind_param($stmt, str_repeat('s', count($search_params)), ...$search_params);
@@ -85,6 +86,7 @@ if ($product_result) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="catalogo.css">
+    <link rel="stylesheet" href="confirmation.css">
     <title>Catálogo</title>
 </head>
 <body>
@@ -98,7 +100,7 @@ if ($product_result) {
 
 <?php include 'navbar.php'; ?>
 
-<main class="container-fluid mt-5 px-lg-5">
+<main class="container-fluid mt-5 px-lg-5 mb-5">
     <h1 class="text-center mb-5">Catálogo de Produtos</h1>
 
     <div class="row catalog-main-row">
@@ -153,7 +155,7 @@ if ($product_result) {
                                                 <img src="imagens/<?= htmlspecialchars($product['imagemPrincipal']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['nome']) ?>">
                                             </a>
                                         </div>
-                                                                                    <a href="adicionar_carrinho.php?id=<?= $product['ID'] ?>" class="btn btn-primary btn-add-to-cart"><i class="bi bi-cart"></i></a>
+                                                                                    <a href="adicionar_carrinho.php?id=<?= $product['ID'] ?>" class="btn btn-primary btn-add-to-cart" data-product-id="<?= $product['ID'] ?>"><i class="bi bi-cart"></i></a>
                                         <div class="card-body d-flex flex-column p-3">
                                             <div class="flex-grow-1">
                                                 <p class="product-brand text-muted small mb-1"><?= htmlspecialchars($product['marca_nome']) ?></p>
@@ -189,7 +191,7 @@ if ($product_result) {
                                                     <img src="imagens/<?= htmlspecialchars($product['imagemPrincipal']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['nome']) ?>">
                                                 </a>
                                             </div>
-                                            <a href="adicionar_carrinho.php?id=<?= $product['ID'] ?>" class="btn btn-primary btn-add-to-cart"><i class="bi bi-cart"></i></a>
+                                            <a href="adicionar_carrinho.php?id=<?= $product['ID'] ?>" class="btn btn-primary btn-add-to-cart" data-product-id="<?= $product['ID'] ?>"><i class="bi bi-cart"></i></a>
                                             <div class="card-body d-flex flex-column p-3">
                                                 <div class="flex-grow-1">
                                                     <p class="product-brand text-muted small mb-1"><?= htmlspecialchars($product['marca_nome']) ?></p>
@@ -219,24 +221,7 @@ if ($product_result) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Scroll suave para as âncoras de categoria
-    document.querySelectorAll('.category-sidebar a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            let targetId = this.getAttribute('href');
-            let targetElement = document.querySelector(targetId);
-
-            if(targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-});
-</script>
+<script src="confirmation.js"></script>
+<script src="global.js"></script>
 </body>
 </html>

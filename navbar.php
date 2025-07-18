@@ -1,5 +1,4 @@
 <?php
-session_start();
 // barra_de_navegacao.php
 ?>
 <nav class="navbar navbar-expand-lg">
@@ -11,13 +10,13 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php">Home</a>
+                    <a class="nav-link animated-nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="catalogo.php">Catálogo</a>
+                    <a class="nav-link animated-nav-link" href="catalogo.php">Catálogo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="configurador.php">Configurador</a>
+                    <a class="nav-link animated-nav-link" href="configurador.php">Configurador</a>
                 </li>
                 <li class="nav-item">
                     
@@ -31,17 +30,20 @@ session_start();
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="definicoes.php">Definições de Perfil</a></li>
                             <li><a class="dropdown-item" href="encomendas.php">Encomendas</a></li>
+                            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                                <li><a class="dropdown-item" href="admin/index.php">Backoffice</a></li>
+                            <?php endif; ?>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="logout.php">Sair</a></li>
                         </ul>
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
+                        <a class="nav-link animated-nav-link" href="login.php">Login</a>
                     </li>
                 <?php endif; ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="carrinho.php">Carrinho</a>
+                    <a class="nav-link animated-nav-link" href="carrinho.php">Carrinho</a>
                 </li>
             </ul>
         </div>
